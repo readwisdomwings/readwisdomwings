@@ -5,17 +5,17 @@ const benefits = [
   {
     icon: BookOpen,
     title: 'Build a daily habit',
-    description: 'Access books at daily basis and adding to your daily routine which is affordable for everyone.'
+    description: 'Fresh books weekly keep kids excited to read beyond screens.'
   },
   {
     icon: Clock,
     title: 'Reduce screen time',
-    description: 'Encourage valuable stories that can entertain our children and help them move away from screens.'
+    description: 'Encourage mindful, device-free moments with stories and pictures.'
   },
   {
     icon: Users,
     title: 'Affordable for families',
-    description: 'Pay a low weekly rent by renting rather than buying at a cost per book.'
+    description: 'Pay a tiny weekly rent vs. buying new each time.'
   }
 ];
 
@@ -28,7 +28,7 @@ export function BenefitsSection() {
             Benefits of Reading
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Studies show reading regularly builds strong foundations. A flourishing literacy culture of kids reading makes them kind and considerate in the long run.
+            Stories spark curiosity, empathy and imagination. A library makes it easy and affordable to keep this habit.
           </p>
         </div>
 

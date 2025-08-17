@@ -5,26 +5,21 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 
 export function BookCard({ book, onDetailsClick }: BookCardProps) {
   return (
-    <Card className="group overflow-hidden bg-gradient-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
-      <div className="aspect-[3/4] relative overflow-hidden">
+    <Card 
+      className="group overflow-hidden bg-gradient-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+      onClick={() => onDetailsClick(book)}
+    >
+      <div className="aspect-[3/4] relative overflow-hidden p-3">
         <img
           src={book.coverImage}
           alt={`Cover of ${book.title}`}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-cover rounded transition-transform duration-300 group-hover:scale-105"
           onError={(e) => {
             const img = e.target as HTMLImageElement;
             img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center";
           }}
           loading="lazy"
         />
-        <div className="absolute top-3 right-3">
-          <Badge 
-            variant={book.status === 'Available' ? 'default' : 'destructive'}
-            className="text-xs font-medium"
-          >
-            {book.status}
-          </Badge>
-        </div>
       </div>
       
       <CardContent className="p-4 space-y-3">
@@ -37,10 +32,19 @@ export function BookCard({ book, onDetailsClick }: BookCardProps) {
           </p>
         </div>
         
+        <div>
+          <Badge 
+            variant={book.status === 'Available' ? 'default' : 'destructive'}
+            className={book.status === 'Available' ? 'bg-success hover:bg-success/90' : ''}
+          >
+            {book.status}
+          </Badge>
+        </div>
+        
         {book.tags && book.tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {book.tags.map((tag, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
+              <Badge key={index} variant="outline" className="text-xs">
                 {tag}
               </Badge>
             ))}
@@ -49,19 +53,18 @@ export function BookCard({ book, onDetailsClick }: BookCardProps) {
         
         <div className="space-y-1 text-sm">
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Weekly Rent:</span>
-            <span className="font-medium text-accent">₹{book.weeklyRent.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">Deposit:</span>
-            <span className="font-medium">₹{book.securityDeposit.toFixed(2)}</span>
+            <span className="font-medium">₹{book.weeklyRent}/week</span>
+            <span className="text-muted-foreground text-xs">+ ₹{book.securityDeposit} deposit</span>
           </div>
         </div>
       </CardContent>
       
       <CardFooter className="p-4 pt-0">
         <Button 
-          onClick={() => onDetailsClick(book)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDetailsClick(book);
+          }}
           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
           size="sm"
         >

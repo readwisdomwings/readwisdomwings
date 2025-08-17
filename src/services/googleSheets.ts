@@ -8,6 +8,10 @@ const API_KEY = 'AIzaSyBgYHQNsKZr1dJBdDqpxXdUjhGBUBU8K6k'; // Public read-only k
 export interface BrandingData {
   logo: string;
   bannerImage: string;
+  mostPopularBooks: string[];
+  interestingComics: string[];
+  popularBookSeries: string[];
+  popularBookSeriesImages: string[];
 }
 
 export class GoogleSheetsService {
@@ -52,7 +56,11 @@ export class GoogleSheetsService {
       console.error('Error fetching branding data from Google Sheets:', error);
       return {
         logo: '/placeholder.svg',
-        bannerImage: '/placeholder.svg'
+        bannerImage: '/placeholder.svg',
+        mostPopularBooks: [],
+        interestingComics: [],
+        popularBookSeries: [],
+        popularBookSeriesImages: []
       };
     }
   }
@@ -105,7 +113,11 @@ export class GoogleSheetsService {
     if (lines.length < 2) {
       return {
         logo: '/placeholder.svg',
-        bannerImage: '/placeholder.svg'
+        bannerImage: '/placeholder.svg',
+        mostPopularBooks: [],
+        interestingComics: [],
+        popularBookSeries: [],
+        popularBookSeriesImages: []
       };
     }
     
@@ -114,7 +126,11 @@ export class GoogleSheetsService {
     
     return {
       logo: this.processImageUrl(columns[0]) || '/placeholder.svg',
-      bannerImage: this.processImageUrl(columns[1]) || '/placeholder.svg'
+      bannerImage: this.processImageUrl(columns[1]) || '/placeholder.svg',
+      mostPopularBooks: columns[2] ? columns[2].split(',').map(s => s.trim()) : [],
+      interestingComics: columns[3] ? columns[3].split(',').map(s => s.trim()) : [],
+      popularBookSeries: columns[4] ? columns[4].split(',').map(s => s.trim()) : [],
+      popularBookSeriesImages: columns[5] ? columns[5].split(',').map(s => this.processImageUrl(s.trim())).filter(Boolean) : []
     };
   }
 

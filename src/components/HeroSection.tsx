@@ -16,28 +16,28 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-12 md:py-20">
+    <section className="relative bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-8 md:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 Build reading habits.{' '}
-                <span className="text-primary">Borrow delightful</span>{' '}
-                children's books in your society.
+                <span className="text-primary">Read delightful</span>{' '}
+                children's books.
               </h1>
               <p className="text-lg text-muted-foreground max-w-xl">
-                Nurture young minds with carefully curated children's books. Rent weekly. 
-                Build lifelong reading habits. Create unforgettable memories.
+                A friendly, community-powered kids library. Small refundable deposit, 
+                low weekly rent, lots of joy.
               </p>
             </div>
-            <Button size="lg" asChild>
-              <Link to="/books">Browse Collection</Link>
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+              <Link to="/books">Explore Collection</Link>
             </Button>
           </div>
 
-          {/* Illustration */}
+          {/* Banner Image */}
           <div className="relative">
             {branding?.bannerImage ? (
               <img
@@ -45,6 +45,7 @@ export function HeroSection() {
                 alt="Children reading books"
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 loading="lazy"
+                style={{ aspectRatio: '1600/896' }}
               />
             ) : (
               <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center">
