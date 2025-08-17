@@ -13,7 +13,7 @@ export function BookCard({ book, onDetailsClick }: BookCardProps) {
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           onError={(e) => {
             const img = e.target as HTMLImageElement;
-            img.src = "https://drive.google.com/file/d/196OtZuA1i1_MT5pjWqRMnKu-nxYfx6WB/view?usp=sharin";
+            img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center";
           }}
           loading="lazy"
         />
