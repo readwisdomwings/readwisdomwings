@@ -115,7 +115,15 @@ export class GoogleSheetsService {
     const googleDriveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
     if (googleDriveMatch) {
       const fileId = googleDriveMatch[1];
-      return `https://drive.google.com/uc?export=view&id=${fileId}`;
+      // Use the thumbnail URL which works better for public images
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+    }
+    
+    // Also handle if someone puts the direct uc URL
+    const ucMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (ucMatch) {
+      const fileId = ucMatch[1];
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
     }
     
     // Return the URL as-is for other image URLs
