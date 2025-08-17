@@ -55,7 +55,7 @@ export class GoogleSheetsService {
           securityDeposit: parseFloat(columns[7]) || 0,
           status: (columns[8] === 'Available' ? 'Available' : 'Unavailable') as 'Available' | 'Unavailable',
           description: columns[9] || 'No description available.',
-          coverImage: columns[10] || '/placeholder-book.jpg',
+          coverImage: this.processImageUrl(columns[10]) || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center',
           contentImage: columns[11] || undefined,
           totalRentals: parseInt(columns[12]) || 0,
           tags: this.generateTags({
@@ -106,6 +106,20 @@ export class GoogleSheetsService {
     }
     
     return tags;
+  }
+
+  private processImageUrl(url: string): string | null {
+    if (!url || url.trim() === '') return null;
+    
+    // Handle Google Drive URLs - convert to direct image URLs
+    const googleDriveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (googleDriveMatch) {
+      const fileId = googleDriveMatch[1];
+      return `https://drive.google.com/uc?export=view&id=${fileId}`;
+    }
+    
+    // Return the URL as-is for other image URLs
+    return url.trim();
   }
 
   private getFallbackBooks(): Book[] {

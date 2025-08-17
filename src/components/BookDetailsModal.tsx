@@ -39,6 +39,7 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
                   const img = e.target as HTMLImageElement;
                   img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=533&fit=crop&crop=center";
                 }}
+                loading="lazy"
               />
               <div className="absolute top-3 right-3">
                 <Badge 
