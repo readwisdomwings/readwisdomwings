@@ -2,7 +2,13 @@ import { Book } from '@/types/book';
 
 const SHEET_ID = '1FurK9iQgtEyWWfweF3Za-NUJwd2eLRztsxvVV9IvvjE';
 const SHEET_NAME = 'Sheet1';
+const BRANDING_SHEET = 'Sheet2';
 const API_KEY = 'AIzaSyBgYHQNsKZr1dJBdDqpxXdUjhGBUBU8K6k'; // Public read-only key for demo
+
+export interface BrandingData {
+  logo: string;
+  bannerImage: string;
+}
 
 export class GoogleSheetsService {
   private static instance: GoogleSheetsService;
@@ -16,7 +22,6 @@ export class GoogleSheetsService {
 
   async fetchBooks(): Promise<Book[]> {
     try {
-      // For demo purposes, we'll use the CSV export URL which doesn't require API key
       const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
       
       const response = await fetch(csvUrl);
@@ -28,8 +33,27 @@ export class GoogleSheetsService {
       return this.parseCSVToBooks(csvText);
     } catch (error) {
       console.error('Error fetching books from Google Sheets:', error);
-      // Return fallback data
       return this.getFallbackBooks();
+    }
+  }
+
+  async fetchBrandingData(): Promise<BrandingData> {
+    try {
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=2070503785`; // Sheet2 gid
+      
+      const response = await fetch(csvUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const csvText = await response.text();
+      return this.parseBrandingData(csvText);
+    } catch (error) {
+      console.error('Error fetching branding data from Google Sheets:', error);
+      return {
+        logo: '/placeholder.svg',
+        bannerImage: '/placeholder.svg'
+      };
     }
   }
 
@@ -56,18 +80,42 @@ export class GoogleSheetsService {
           status: (columns[8] === 'Available' ? 'Available' : 'Unavailable') as 'Available' | 'Unavailable',
           description: columns[9] || 'No description available.',
           coverImage: this.processImageUrl(columns[10]) || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center',
-          contentImage: columns[11] || undefined,
+          innerPageImage: this.processImageUrl(columns[11]) || undefined,
           totalRentals: parseInt(columns[12]) || 0,
+          mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
+          isNew: columns[14] === 'TRUE' || columns[14] === 'true',
+          frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true',
           tags: this.generateTags({
             totalRentals: parseInt(columns[12]) || 0,
-            status: columns[8] as 'Available' | 'Unavailable'
+            status: columns[8] as 'Available' | 'Unavailable',
+            mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
+            isNew: columns[14] === 'TRUE' || columns[14] === 'true',
+            frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true'
           })
         };
         books.push(book);
       }
     }
     
-    return books.slice(0, 3); // Return only first 3 books as requested
+    return books; // Return all books
+  }
+
+  private parseBrandingData(csvText: string): BrandingData {
+    const lines = csvText.split('\n');
+    if (lines.length < 2) {
+      return {
+        logo: '/placeholder.svg',
+        bannerImage: '/placeholder.svg'
+      };
+    }
+    
+    const dataLine = lines[1].trim();
+    const columns = this.parseCSVLine(dataLine);
+    
+    return {
+      logo: this.processImageUrl(columns[0]) || '/placeholder.svg',
+      bannerImage: this.processImageUrl(columns[1]) || '/placeholder.svg'
+    };
   }
 
   private parseCSVLine(line: string): string[] {
@@ -92,17 +140,26 @@ export class GoogleSheetsService {
     return result;
   }
 
-  private generateTags(book: { totalRentals: number; status: 'Available' | 'Unavailable' }): string[] {
+  private generateTags(book: { 
+    totalRentals: number; 
+    status: 'Available' | 'Unavailable';
+    mostFavourite?: boolean;
+    isNew?: boolean;
+    frequentlyRented?: boolean;
+  }): string[] {
     const tags: string[] = [];
     
-    if (book.totalRentals > 10) {
-      tags.push('Most Popular');
+    if (book.mostFavourite) {
+      tags.push('Most Favourite');
     }
-    if (book.totalRentals > 5) {
+    if (book.isNew) {
+      tags.push('New');
+    }
+    if (book.frequentlyRented) {
       tags.push('Frequently Rented');
     }
-    if (book.totalRentals === 0) {
-      tags.push('New');
+    if (book.totalRentals > 10 && !book.mostFavourite) {
+      tags.push('Most Popular');
     }
     
     return tags;

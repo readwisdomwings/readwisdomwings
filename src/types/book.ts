@@ -10,8 +10,11 @@ export interface Book {
   status: 'Available' | 'Unavailable';
   description: string;
   coverImage: string;
-  contentImage?: string;
+  innerPageImage?: string;
   totalRentals: number;
+  mostFavourite?: boolean;
+  isNew?: boolean;
+  frequentlyRented?: boolean;
   tags?: string[];
 }
 
