@@ -48,7 +48,7 @@ export class GoogleSheetsService {
 
   async fetchBrandingData(): Promise<BrandingData> {
     try {
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=2070503785`; // Correct Sheet2 gid
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`; // Main sheet where data is located
       
       const response = await fetch(csvUrl);
       if (!response.ok) {
