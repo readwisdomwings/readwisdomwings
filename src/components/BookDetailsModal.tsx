@@ -33,14 +33,6 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <DialogTitle className="text-xl font-semibold">Book Details</DialogTitle>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="h-8 w-8 p-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -89,26 +81,27 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
               <p className="text-lg text-muted-foreground mb-1">
                 by {book.author}
               </p>
+              <p className="text-xs text-muted-foreground/70 mb-3">ID: {book.id}</p>
             </div>
 
-            <div>
+            <div className="space-y-2">
               <Badge 
                 variant={book.status === 'Available' ? 'default' : 'destructive'}
-                className={book.status === 'Available' ? 'bg-success hover:bg-success/90' : ''}
+                className={book.status === 'Available' ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-red-500 hover:bg-red-600'}
               >
                 {book.status}
               </Badge>
+              
+              {book.tags && book.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {book.tags.map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
-            
-            {book.tags && book.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {book.tags.map((tag, index) => (
-                  <Badge key={index} variant="outline" className="text-xs">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
             
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
@@ -123,17 +116,17 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
             
             <Separator />
             
-            <div className="bg-muted p-4 rounded-lg space-y-2">
+            <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-4 rounded-lg space-y-2">
               <div className="flex justify-between items-center">
                 <span className="font-medium">Weekly Rent:</span>
                 <span className="text-lg font-bold text-primary">₹{book.weeklyRent}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="font-medium text-muted-foreground">Security Deposit:</span>
+                <span className="font-medium text-muted-foreground text-sm">Security Deposit:</span>
                 <span className="text-sm text-muted-foreground">₹{book.securityDeposit}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="font-medium">Original Price:</span>
+                <span className="font-medium text-muted-foreground text-sm">Original Price:</span>
                 <span className="text-sm text-muted-foreground">₹{book.originalPrice}</span>
               </div>
             </div>
@@ -148,7 +141,7 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
                 {book.description.length > 290 && (
                   <button
                     onClick={() => setShowFullDescription(!showFullDescription)}
-                    className="text-primary hover:underline ml-1"
+                    className="text-primary hover:underline ml-1 font-medium"
                   >
                     {showFullDescription ? 'show less' : 'show more'}
                   </button>
@@ -158,7 +151,7 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
             
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+              className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
               size="lg"
             >
               Contact to rent

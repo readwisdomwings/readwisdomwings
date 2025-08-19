@@ -16,20 +16,17 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-8 md:py-14">
+    <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-6">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                Build reading habits.{' '}
-                <span className="text-primary">Read delightful</span>{' '}
-                children's books.
+                {branding?.bannerTitle || 'Build reading habits. Read delightful children\'s books.'}
               </h1>
               <p className="text-lg text-muted-foreground max-w-xl">
-                A friendly, community-powered kids library. Small refundable deposit, 
-                low weekly rent, lots of joy.
+                {branding?.bannerSubTitle || 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.'}
               </p>
             </div>
             <Button size="lg" asChild className="bg-primary hover:bg-primary/90">

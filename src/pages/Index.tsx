@@ -10,10 +10,11 @@ const Index = () => {
     <Layout>
       <HeroSection />
       <BenefitsSection />
-      <FeaturedBooks title="Most Popular" filterType="mostPopular" />
-      <FeaturedBooks title="Interesting Comics" filterType="interestingComics" />
-      <PopularBookSeries />
+      <FeaturedBooks title="Most Popular" sectionKey="section1" />
+      <FeaturedBooks title="Interesting Comics" sectionKey="section2" />
+      <FeaturedBooks title="Books for Everyone" sectionKey="section3" />
       <HowItWorks />
+      <PopularBookSeries />
     </Layout>
   );
 };

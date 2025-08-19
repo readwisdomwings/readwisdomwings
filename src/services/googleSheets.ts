@@ -8,9 +8,14 @@ const API_KEY = 'AIzaSyBgYHQNsKZr1dJBdDqpxXdUjhGBUBU8K6k'; // Public read-only k
 export interface BrandingData {
   logo: string;
   bannerImage: string;
-  mostPopularBooks: string[];
-  interestingComics: string[];
-  popularBookSeries: string[];
+  bannerTitle: string;
+  bannerSubTitle: string;
+  section1Name: string;
+  section1Books: string[];
+  section2Name: string;
+  section2Books: string[];
+  section3Name: string;
+  section3Books: string[];
   popularBookSeriesImages: string[];
 }
 
@@ -43,7 +48,7 @@ export class GoogleSheetsService {
 
   async fetchBrandingData(): Promise<BrandingData> {
     try {
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=2070503785`; // Sheet2 gid
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=2070503785`; // Correct Sheet2 gid
       
       const response = await fetch(csvUrl);
       if (!response.ok) {
@@ -57,9 +62,14 @@ export class GoogleSheetsService {
       return {
         logo: '/placeholder.svg',
         bannerImage: '/placeholder.svg',
-        mostPopularBooks: [],
-        interestingComics: [],
-        popularBookSeries: [],
+        bannerTitle: 'Build reading habits. Read delightful children\'s books.',
+        bannerSubTitle: 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.',
+        section1Name: 'Most Popular',
+        section1Books: [],
+        section2Name: 'Interesting Comics',
+        section2Books: [],
+        section3Name: 'Books for Everyone',
+        section3Books: [],
         popularBookSeriesImages: []
       };
     }
@@ -93,6 +103,7 @@ export class GoogleSheetsService {
           mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
           isNew: columns[14] === 'TRUE' || columns[14] === 'true',
           frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true',
+          additionalTag: columns[16] || '', // Column Q - additional tag if any
           tags: this.generateTags({
             totalRentals: parseInt(columns[12]) || 0,
             status: columns[8] as 'Available' | 'Unavailable',
@@ -105,33 +116,85 @@ export class GoogleSheetsService {
       }
     }
     
-    return books; // Return all books
+    return books.filter(book => book.title && book.author); // Return all valid books
   }
 
   private parseBrandingData(csvText: string): BrandingData {
     const lines = csvText.split('\n');
-    if (lines.length < 2) {
+    if (lines.length < 7) { // Need enough rows for the data
       return {
         logo: '/placeholder.svg',
         bannerImage: '/placeholder.svg',
-        mostPopularBooks: [],
-        interestingComics: [],
-        popularBookSeries: [],
+        bannerTitle: 'Build reading habits. Read delightful children\'s books.',
+        bannerSubTitle: 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.',
+        section1Name: 'Most Popular',
+        section1Books: [],
+        section2Name: 'Interesting Comics',
+        section2Books: [],
+        section3Name: 'Books for Everyone',
+        section3Books: [],
         popularBookSeriesImages: []
       };
     }
     
-    const dataLine = lines[1].trim();
-    const columns = this.parseCSVLine(dataLine);
+    // Parse each line to get the data from specific cells
+    const cellData = new Map<string, string>();
+    
+    for (let i = 0; i < lines.length; i++) {
+      const columns = this.parseCSVLine(lines[i]);
+      // Map column indices to cell references based on the row
+      for (let j = 0; j < columns.length; j++) {
+        const cellRef = this.getCellReference(i + 1, j + 1); // 1-based indexing
+        cellData.set(cellRef, columns[j]);
+      }
+    }
     
     return {
-      logo: this.processImageUrl(columns[0]) || '/placeholder.svg',
-      bannerImage: this.processImageUrl(columns[1]) || '/placeholder.svg',
-      mostPopularBooks: columns[2] ? columns[2].split(',').map(s => s.trim()) : [],
-      interestingComics: columns[3] ? columns[3].split(',').map(s => s.trim()) : [],
-      popularBookSeries: columns[4] ? columns[4].split(',').map(s => s.trim()) : [],
-      popularBookSeriesImages: columns[5] ? columns[5].split(',').map(s => this.processImageUrl(s.trim())).filter(Boolean) : []
+      logo: this.processImageUrl(cellData.get('U2') || '') || '/placeholder.svg',
+      bannerImage: this.processImageUrl(cellData.get('V1') || '') || '/placeholder.svg',
+      bannerTitle: cellData.get('V3') || 'Build reading habits. Read delightful children\'s books.',
+      bannerSubTitle: cellData.get('V4') || 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.',
+      section1Name: cellData.get('W1') || 'Most Popular',
+      section1Books: [
+        cellData.get('W2'),
+        cellData.get('W3'),
+        cellData.get('W4'),
+        cellData.get('W5'),
+        cellData.get('W6')
+      ].filter(Boolean),
+      section2Name: cellData.get('X1') || 'Interesting Comics',
+      section2Books: [
+        cellData.get('X2'),
+        cellData.get('X3'),
+        cellData.get('X4'),
+        cellData.get('X5'),
+        cellData.get('X6')
+      ].filter(Boolean),
+      section3Name: cellData.get('Y1') || 'Books for Everyone',
+      section3Books: [
+        cellData.get('Y2'),
+        cellData.get('Y3'),
+        cellData.get('Y4'),
+        cellData.get('Y5'),
+        cellData.get('Y6')
+      ].filter(Boolean),
+      popularBookSeriesImages: [
+        cellData.get('Z2'),
+        cellData.get('Z3'),
+        cellData.get('Z4'),
+        cellData.get('Z5'),
+        cellData.get('Z6')
+      ].map(url => this.processImageUrl(url || '')).filter(Boolean)
     };
+  }
+
+  private getCellReference(row: number, col: number): string {
+    let colRef = '';
+    while (col > 0) {
+      colRef = String.fromCharCode(65 + ((col - 1) % 26)) + colRef;
+      col = Math.floor((col - 1) / 26);
+    }
+    return colRef + row;
   }
 
   private parseCSVLine(line: string): string[] {
@@ -174,7 +237,7 @@ export class GoogleSheetsService {
     if (book.frequentlyRented) {
       tags.push('Frequently Rented');
     }
-    if (book.totalRentals > 10 && !book.mostFavourite) {
+    if (book.totalRentals > 10 && !book.mostFavourite && !book.frequentlyRented) {
       tags.push('Most Popular');
     }
     

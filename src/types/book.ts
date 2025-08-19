@@ -15,6 +15,7 @@ export interface Book {
   mostFavourite?: boolean;
   isNew?: boolean;
   frequentlyRented?: boolean;
+  additionalTag?: string;
   tags?: string[];
 }
 
