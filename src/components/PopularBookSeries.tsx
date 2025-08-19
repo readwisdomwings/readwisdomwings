@@ -13,7 +13,7 @@ export function PopularBookSeries() {
     fetchBranding();
   }, []);
 
-  if (!branding?.popularBookSeriesImages.length) return null;
+  if (!branding?.popularBookSeriesImages?.length) return null;
 
   return (
     <section className="py-16 bg-background">
@@ -25,7 +25,7 @@ export function PopularBookSeries() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {branding.popularBookSeriesImages.map((image, index) => (
+          {branding.popularBookSeriesImages?.map((image, index) => (
             <div key={index} className="aspect-square bg-muted rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <img
                 src={image}
