@@ -49,7 +49,7 @@ export function Navbar() {
                 <span className="text-primary-foreground font-bold text-sm">W</span>
               </div>
             )}
-            <span className="text-xl font-bold text-primary">WisdomWings</span>
+            <span className="text-xl font-bold text-primary" style={{ textShadow: 'none' }}>WisdomWings</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -63,6 +63,7 @@ export function Navbar() {
                     ? 'text-primary border-b-2 border-primary pb-1' 
                     : 'text-muted-foreground'
                 }`}
+                style={{ textShadow: 'none' }}
               >
                 {item.name}
               </Link>

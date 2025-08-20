@@ -68,6 +68,9 @@ export default {
 					DEFAULT: 'hsl(var(--library-neutral))',
 					foreground: 'hsl(var(--library-neutral-foreground))'
 				},
+				'library-pink': 'hsl(var(--library-pink))',
+				'library-blue': 'hsl(var(--library-blue))',
+				'library-green': 'hsl(var(--library-green))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
