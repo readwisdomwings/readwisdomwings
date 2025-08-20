@@ -79,12 +79,21 @@ export class GoogleSheetsService {
     const lines = csvText.split('\n');
     const books: Book[] = [];
     
+    console.log(`Total lines in CSV: ${lines.length}`);
+    console.log(`First few lines:`, lines.slice(0, 3));
+    console.log(`Last few lines:`, lines.slice(-3));
+    
     // Skip header row (index 0) and start from row 1
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
-      if (!line) continue;
+      if (!line) {
+        console.log(`Skipping empty line at index ${i}`);
+        continue;
+      }
       
       const columns = this.parseCSVLine(line);
+      console.log(`Line ${i}: ${columns.length} columns, Book ID: ${columns[0]}`);
+      
       if (columns.length >= 13) {
         const book: Book = {
           id: columns[0] || `book-${i}`,
@@ -113,10 +122,16 @@ export class GoogleSheetsService {
           })
         };
         books.push(book);
+      } else {
+        console.log(`Skipping line ${i} - insufficient columns (${columns.length}): ${line.substring(0, 100)}...`);
       }
     }
     
-    return books.filter(book => book.title && book.author); // Return all valid books
+    console.log(`Total books parsed: ${books.length}`);
+    const filteredBooks = books.filter(book => book.title && book.author);
+    console.log(`Books after filtering: ${filteredBooks.length}`);
+    
+    return filteredBooks;
   }
 
   private parseBrandingData(csvText: string): BrandingData {
