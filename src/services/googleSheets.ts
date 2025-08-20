@@ -151,7 +151,7 @@ export class GoogleSheetsService {
     
     return {
       logo: this.processImageUrl(cellData.get('U2') || '') || '/placeholder.svg',
-      bannerImage: this.processImageUrl(cellData.get('V1') || '') || '/placeholder.svg',
+      bannerImage: this.processImageUrl(cellData.get('V2') || '') || '/placeholder.svg',
       bannerTitle: cellData.get('V3') || 'Build reading habits. Read delightful children\'s books.',
       bannerSubTitle: cellData.get('V4') || 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.',
       section1Name: cellData.get('W1') || 'Most Popular',
@@ -162,13 +162,13 @@ export class GoogleSheetsService {
         cellData.get('W5'),
         cellData.get('W6')
       ].filter(Boolean),
-      section2Name: cellData.get('X1') || 'Interesting Comics',
+      section2Name: cellData.get('X2') || 'Interesting Comics',
       section2Books: [
-        cellData.get('X2'),
         cellData.get('X3'),
         cellData.get('X4'),
         cellData.get('X5'),
-        cellData.get('X6')
+        cellData.get('X6'),
+        cellData.get('X7')
       ].filter(Boolean),
       section3Name: cellData.get('Y1') || 'Books for Everyone',
       section3Books: [

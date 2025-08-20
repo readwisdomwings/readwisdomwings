@@ -86,18 +86,7 @@ export default function Contact() {
           </Card>
         </div>
 
-        {/* FAQ Link */}
-        <div className="mt-16 text-center bg-card rounded-lg border p-8">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Frequently Asked Questions
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            Looking for quick answers? Check out our FAQ section for common questions about our services.
-          </p>
-          <Button variant="outline" asChild>
-            <a href="/faqs">View FAQs</a>
-          </Button>
-        </div>
+        {/* FAQ Link - REMOVED */}
       </div>
     </div>
   );

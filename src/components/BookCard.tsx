@@ -2,6 +2,7 @@ import { BookCardProps } from '@/types/book';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import bookPlaceholder from '@/assets/book-placeholder.jpg';
 
 export function BookCard({ book, onDetailsClick }: BookCardProps) {
   return (
@@ -16,7 +17,7 @@ export function BookCard({ book, onDetailsClick }: BookCardProps) {
           className="w-full h-full object-cover rounded transition-transform duration-300 group-hover:scale-105"
           onError={(e) => {
             const img = e.target as HTMLImageElement;
-            img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center";
+            img.src = bookPlaceholder;
           }}
           loading="lazy"
         />
