@@ -76,62 +76,172 @@ export class GoogleSheetsService {
   }
 
   private parseCSVToBooks(csvText: string): Book[] {
-    const lines = csvText.split('\n');
     const books: Book[] = [];
     
-    console.log(`Total lines in CSV: ${lines.length}`);
-    console.log(`First few lines:`, lines.slice(0, 3));
-    console.log(`Last few lines:`, lines.slice(-3));
+    console.log(`Starting CSV parsing...`);
+    
+    // Parse CSV properly handling quoted fields and multiline content
+    const rows = this.parseCSVRows(csvText);
+    
+    console.log(`Total rows parsed: ${rows.length}`);
     
     // Skip header row (index 0) and start from row 1
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) {
-        console.log(`Skipping empty line at index ${i}`);
+    for (let i = 1; i < rows.length; i++) {
+      const columns = rows[i];
+      
+      if (!columns || columns.length === 0) {
+        console.log(`Skipping empty row at index ${i}`);
         continue;
       }
       
-      const columns = this.parseCSVLine(line);
-      console.log(`Line ${i}: ${columns.length} columns, Book ID: ${columns[0]}`);
+      console.log(`Row ${i}: ${columns.length} columns, Book ID: ${columns[0]}`);
       
-      if (columns.length >= 13) {
-        const book: Book = {
-          id: columns[0] || `book-${i}`,
-          title: columns[1] || 'Unknown Title',
-          author: columns[2] || 'Unknown Author',
-          category: columns[3] || 'General',
-          ageRange: columns[4] || 'All Ages',
-          originalPrice: parseFloat(columns[5]) || 0,
-          weeklyRent: parseFloat(columns[6]) || 0,
-          securityDeposit: parseFloat(columns[7]) || 0,
-          status: (columns[8] === 'Available' ? 'Available' : 'Unavailable') as 'Available' | 'Unavailable',
-          description: columns[9] || 'No description available.',
-          coverImage: this.processImageUrl(columns[10]) || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center',
-          innerPageImage: this.processImageUrl(columns[11]) || undefined,
-          totalRentals: parseInt(columns[12]) || 0,
-          mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
-          isNew: columns[14] === 'TRUE' || columns[14] === 'true',
-          frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true',
-          additionalTag: columns[16] || '', // Column Q - additional tag if any
-          tags: this.generateTags({
+      // Check if we have minimum required columns
+      if (columns.length >= 13 && columns[0] && columns[0].trim() !== '') {
+        try {
+          const additionalTags = this.getAdditionalTags(columns);
+          
+          const book: Book = {
+            id: columns[0] || `book-${i}`,
+            title: columns[1] || 'Unknown Title',
+            author: columns[2] || 'Unknown Author',
+            category: columns[3] || 'General',
+            ageRange: columns[4] || 'All Ages',
+            originalPrice: parseFloat(columns[5]) || 0,
+            weeklyRent: parseFloat(columns[6]) || 0,
+            securityDeposit: parseFloat(columns[7]) || 0,
+            status: (columns[8] === 'Available' ? 'Available' : 'Unavailable') as 'Available' | 'Unavailable',
+            description: columns[9] || 'No description available.',
+            coverImage: this.processImageUrl(columns[10]) || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&crop=center',
+            innerPageImage: this.processImageUrl(columns[11]) || undefined,
             totalRentals: parseInt(columns[12]) || 0,
-            status: columns[8] as 'Available' | 'Unavailable',
             mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
             isNew: columns[14] === 'TRUE' || columns[14] === 'true',
-            frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true'
-          })
-        };
-        books.push(book);
+            frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true',
+            additionalTag: columns[16] || '', // Column Q - additional tag if any
+            tags: this.generateTags({
+              totalRentals: parseInt(columns[12]) || 0,
+              status: columns[8] as 'Available' | 'Unavailable',
+              mostFavourite: columns[13] === 'TRUE' || columns[13] === 'true',
+              isNew: columns[14] === 'TRUE' || columns[14] === 'true',
+              frequentlyRented: columns[15] === 'TRUE' || columns[15] === 'true'
+            }, additionalTags)
+          };
+          
+          // Only add books with valid title and author
+          if (book.title && book.title.trim() !== '' && book.author && book.author.trim() !== '') {
+            books.push(book);
+          } else {
+            console.log(`Skipping book with missing title or author at row ${i}`);
+          }
+        } catch (error) {
+          console.log(`Error parsing row ${i}:`, error);
+        }
       } else {
-        console.log(`Skipping line ${i} - insufficient columns (${columns.length}): ${line.substring(0, 100)}...`);
+        console.log(`Skipping row ${i} - insufficient columns (${columns.length}) or missing Book ID`);
       }
     }
     
     console.log(`Total books parsed: ${books.length}`);
-    const filteredBooks = books.filter(book => book.title && book.author);
-    console.log(`Books after filtering: ${filteredBooks.length}`);
     
-    return filteredBooks;
+    return books;
+  }
+
+  private parseCSVRows(csvText: string): string[][] {
+    const rows: string[][] = [];
+    const lines = csvText.split('\n');
+    let currentRow: string[] = [];
+    let currentField = '';
+    let inQuotes = false;
+    let rowIndex = 0;
+    
+    for (const line of lines) {
+      if (rowIndex === 0) {
+        // Handle header row normally
+        rows.push(this.parseCSVLine(line));
+        rowIndex++;
+        continue;
+      }
+      
+      // For data rows, handle multiline properly
+      if (!inQuotes && line.trim() === '') {
+        // Empty line - if we have a current row, finalize it
+        if (currentRow.length > 0) {
+          rows.push([...currentRow]);
+          currentRow = [];
+          currentField = '';
+        }
+        rowIndex++;
+        continue;
+      }
+      
+      // Parse character by character for this line
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        
+        if (char === '"') {
+          if (inQuotes && i + 1 < line.length && line[i + 1] === '"') {
+            // Escaped quote
+            currentField += '"';
+            i++; // Skip next quote
+          } else {
+            // Toggle quote state
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          // Field separator
+          currentRow.push(currentField);
+          currentField = '';
+        } else {
+          currentField += char;
+        }
+      }
+      
+      if (!inQuotes) {
+        // End of row
+        currentRow.push(currentField);
+        rows.push([...currentRow]);
+        currentRow = [];
+        currentField = '';
+      } else {
+        // Continue to next line (multiline field)
+        currentField += '\n';
+      }
+      
+      rowIndex++;
+    }
+    
+    // Handle any remaining row
+    if (currentRow.length > 0) {
+      rows.push(currentRow);
+    }
+    
+    return rows;
+  }
+
+  private getAdditionalTags(columns: string[]): string[] {
+    const additionalTags: string[] = [];
+    
+    // Check columns M, N, O, P (indices 12, 13, 14, 15) - but we need to adjust since we're already using some of these
+    // Looking at the current mapping, let's use the correct indices for additional tag columns
+    
+    // Column M (index 12) is already totalRentals
+    // Column N (index 13) is already mostFavourite
+    // Column O (index 14) is already isNew
+    // Column P (index 15) is already frequentlyRented
+    
+    // Let's check if there are more columns for additional tags
+    if (columns.length > 17) {
+      // Check columns beyond Q (index 16) for additional tags
+      for (let i = 17; i < Math.min(columns.length, 21); i++) {
+        const tag = columns[i]?.trim();
+        if (tag && tag !== '' && tag !== 'TRUE' && tag !== 'FALSE') {
+          additionalTags.push(tag);
+        }
+      }
+    }
+    
+    return additionalTags;
   }
 
   private parseBrandingData(csvText: string): BrandingData {
@@ -240,7 +350,7 @@ export class GoogleSheetsService {
     mostFavourite?: boolean;
     isNew?: boolean;
     frequentlyRented?: boolean;
-  }): string[] {
+  }, additionalTags: string[] = []): string[] {
     const tags: string[] = [];
     
     if (book.mostFavourite) {
@@ -255,6 +365,13 @@ export class GoogleSheetsService {
     if (book.totalRentals > 10 && !book.mostFavourite && !book.frequentlyRented) {
       tags.push('Most Popular');
     }
+    
+    // Add any additional tags from the spreadsheet
+    additionalTags.forEach(tag => {
+      if (tag && !tags.includes(tag)) {
+        tags.push(tag);
+      }
+    });
     
     return tags;
   }
