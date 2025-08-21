@@ -85,14 +85,14 @@ export default {
 			backgroundImage: {
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-card': 'var(--gradient-card)',
-				'gradient-neon': 'var(--gradient-neon)',
-				'gradient-particle': 'var(--gradient-particle)'
+				'gradient-knowledge': 'var(--gradient-knowledge)',
+				'gradient-subtle': 'var(--gradient-subtle)'
 			},
 			boxShadow: {
 				'card': 'var(--shadow-card)',
 				'card-hover': 'var(--shadow-card-hover)',
-				'neon': 'var(--shadow-neon)',
-				'neon-hover': 'var(--shadow-neon-hover)'
+				'warm': 'var(--shadow-warm)',
+				'warm-hover': 'var(--shadow-warm-hover)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
