@@ -35,8 +35,8 @@ const faqs = [
     answer: "You can contact us via WhatsApp by clicking the floating WhatsApp button on our website or the 'Contact to Rent' button on any book's detail page."
   },
   {
-    question: "Do you sanitize books between rentals?",
-    answer: "Yes, we ensure all books are properly cleaned and sanitized between rentals to maintain hygiene and safety for all our young readers."
+    question: "Can I explore the books at the library location in person?",
+    answer: "We have many books especially for kids. Thats why we offer exploring books online. Currently exploring the books at the library location is not feasible. But if you are interested in checking what's inside, you can click on 'Details' button, on the book details modal, you can click on 'Inner Page' to view an inner page of the book. Currently its available for some books, but we will be making it available for most of the books soon."
   },
   {
     question: "Can I reserve a book that's currently unavailable?",
@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We accept various payment methods including cash, UPI, and digital payments. Payment details will be shared when you contact us for a rental."
+    answer: "Payment details will be shared when you contact us for a rental. We do accept Googlepay, simple online payments"
   }
 ];
 
