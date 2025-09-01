@@ -34,7 +34,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            {branding?.logo ? (
+            {branding?.logo && branding.logo !== '/placeholder.svg' ? (
               <img 
                 src={branding.logo} 
                 alt="WisdomWings" 
@@ -44,11 +44,7 @@ export function Navbar() {
                   target.style.display = 'none';
                 }}
               />
-            ) : (
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">W</span>
-              </div>
-            )}
+            ) : null}
             <span className="text-xl font-bold text-primary" style={{ textShadow: 'none' }}>WisdomWings</span>
           </Link>
 

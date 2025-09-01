@@ -53,7 +53,7 @@ export function BookCard({ book, onDetailsClick }: BookCardProps) {
         </div>
         
         <div className="space-y-1 text-sm pt-2">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
             <span className="font-semibold text-primary">₹{book.weeklyRent}/week</span>
             <span className="text-muted-foreground text-xs">+ ₹{book.securityDeposit} deposit</span>
           </div>

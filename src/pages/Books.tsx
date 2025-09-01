@@ -207,23 +207,24 @@ export default function Books() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center space-x-2 mt-12">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mt-12 px-4">
                 <Button
                   variant="outline"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
+                  className="w-full sm:w-auto"
                 >
                   Previous
                 </Button>
                 
-                <div className="flex space-x-1">
+                <div className="flex flex-wrap justify-center gap-1 max-w-full overflow-x-auto">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <Button
                       key={page}
                       variant={currentPage === page ? "default" : "outline"}
                       size="icon"
                       onClick={() => handlePageChange(page)}
-                      className="w-10 h-10"
+                      className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 text-xs sm:text-sm"
                     >
                       {page}
                     </Button>
@@ -234,6 +235,7 @@ export default function Books() {
                   variant="outline"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
+                  className="w-full sm:w-auto"
                 >
                   Next
                 </Button>

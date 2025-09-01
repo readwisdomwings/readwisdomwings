@@ -366,14 +366,20 @@ export class GoogleSheetsService {
       tags.push('Most Popular');
     }
     
-    // Add any additional tags from the spreadsheet
+    // Add any additional tags from the spreadsheet, but filter out URLs and invalid tags
     additionalTags.forEach(tag => {
-      if (tag && !tags.includes(tag)) {
+      if (tag && !tags.includes(tag) && !this.isUrlOrPath(tag)) {
         tags.push(tag);
       }
     });
     
     return tags;
+  }
+
+  private isUrlOrPath(text: string): boolean {
+    // Filter out URLs, drive paths, or any text that looks like a URL/path
+    const urlPattern = /^https?:\/\/|drive\.google\.com|\/file\/d\/|\.com|\.org|\.net|^\/|\\|\w+:\/\//i;
+    return urlPattern.test(text.trim());
   }
 
   private processImageUrl(url: string): string | null {
