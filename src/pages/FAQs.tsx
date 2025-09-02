@@ -92,10 +92,10 @@ export default function FAQs() {
           </p>
           <div className="space-y-4">
             <p className="text-foreground">
-              <strong>WhatsApp:</strong> +91 98765 43210
+              <strong>WhatsApp:</strong> +91 7506 03 7304
             </p>
             <p className="text-foreground">
-              <strong>Email:</strong> info@wisdomwings.com
+              <strong>Email:</strong> read.wisdomwings@gmail.com
             </p>
             <p className="text-foreground">
               <strong>Hours:</strong> Monday - Sunday, 10:00 AM - 8:00 PM

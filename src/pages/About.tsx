@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { BookOpen, Users, Heart, Target } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { GoogleSheetsService } from '@/services/googleSheets';
 
 const values = [
   {
@@ -25,6 +27,21 @@ const values = [
 ];
 
 export default function About() {
+  const [totalBooks, setTotalBooks] = useState(136);
+
+  useEffect(() => {
+    const fetchBooksCount = async () => {
+      try {
+        const books = await GoogleSheetsService.getInstance().fetchBooks();
+        setTotalBooks(books.length);
+      } catch (error) {
+        console.error('Error fetching books count:', error);
+        // Keep default value of 136 if fetch fails
+      }
+    };
+
+    fetchBooksCount();
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -81,7 +98,7 @@ export default function About() {
         <div className="bg-card rounded-2xl border p-8 text-center">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">136+</div>
+              <div className="text-3xl font-bold text-primary">{totalBooks}+</div>
               <div className="text-sm text-muted-foreground">Books in Collection</div>
             </div>
             <div className="space-y-2">

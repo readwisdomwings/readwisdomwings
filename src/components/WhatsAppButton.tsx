@@ -7,7 +7,7 @@ interface WhatsAppButtonProps {
 
 export function WhatsAppButton({ message = "Hello! I'm interested in your library services." }: WhatsAppButtonProps) {
   const handleWhatsAppClick = () => {
-    const phoneNumber = '+919876543210'; // Replace with actual number
+    const phoneNumber = '+91 7506037304';
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');

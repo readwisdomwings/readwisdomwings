@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 export function ContactSection() {
   const handleWhatsAppClick = () => {
-    const phoneNumber = '+919876543210';
+    const phoneNumber = '+91 7506037304';
     const message = 'Hello! I would like to know more about WisdomWings library services.';
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -23,12 +23,12 @@ export function ContactSection() {
               className="bg-green-500 hover:bg-green-600 text-white"
             >
               <MessageCircle className="h-4 w-4 mr-2" />
-              WhatsApp: +91 98765 43210
+              WhatsApp: +91 7506 03 7304
             </Button>
             <Button variant="outline" asChild>
-              <a href="mailto:info@wisdomwings.com">
+              <a href="mailto:read.wisdomwings@gmail.com">
                 <Mail className="h-4 w-4 mr-2" />
-                info@wisdomwings.com
+                read.wisdomwings@gmail.com
               </a>
             </Button>
           </div>

@@ -9,19 +9,46 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { X } from 'lucide-react';
+import { X, MessageCircle, ExternalLink, ZoomIn, ZoomOut } from 'lucide-react';
 import { useState } from 'react';
 
 export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProps) {
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [coverZoom, setCoverZoom] = useState(1);
+  const [innerPageZoom, setInnerPageZoom] = useState(1);
   
   if (!book) return null;
 
   const handleWhatsAppClick = () => {
-    const message = `Hi! I am interested in renting "${book.title}" by ${book.author}. Can you please help me with the request?`;
+    const phoneNumber = '+91 7506037304';
+    const message = `Hi! I am interested in renting "${book.title}" by ${book.author} (Book ID: ${book.id}). Can you please help me with the request?`;
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
+  };
+
+  const handleZoomIn = (type: 'cover' | 'innerPage') => {
+    if (type === 'cover') {
+      setCoverZoom(prev => Math.min(prev + 0.5, 3));
+    } else {
+      setInnerPageZoom(prev => Math.min(prev + 0.5, 3));
+    }
+  };
+
+  const handleZoomOut = (type: 'cover' | 'innerPage') => {
+    if (type === 'cover') {
+      setCoverZoom(prev => Math.max(prev - 0.5, 0.5));
+    } else {
+      setInnerPageZoom(prev => Math.max(prev - 0.5, 0.5));
+    }
+  };
+
+  const resetZoom = (type: 'cover' | 'innerPage') => {
+    if (type === 'cover') {
+      setCoverZoom(1);
+    } else {
+      setInnerPageZoom(1);
+    }
   };
 
   const truncatedDescription = book.description.length > 290 
@@ -43,31 +70,87 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
                 <TabsTrigger value="inner">Inner Page</TabsTrigger>
               </TabsList>
               <TabsContent value="cover" className="mt-4">
-                <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted">
-                  <img
-                    src={book.coverImage}
-                    alt={`Cover of ${book.title}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=533&fit=crop&crop=center";
-                    }}
-                    loading="lazy"
-                  />
+                <div className="space-y-2">
+                  <div className="flex justify-center gap-2 mb-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleZoomOut('cover')}
+                      disabled={coverZoom <= 0.5}
+                    >
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => resetZoom('cover')}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleZoomIn('cover')}
+                      disabled={coverZoom >= 3}
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="aspect-[3/4] overflow-auto rounded-lg bg-muted border">
+                    <img
+                      src={book.coverImage}
+                      alt={`Cover of ${book.title}`}
+                      className="w-full h-full object-contain transition-transform duration-200"
+                      style={{ transform: `scale(${coverZoom})` }}
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=533&fit=crop&crop=center";
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="inner" className="mt-4">
-                <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted">
-                  <img
-                    src={book.innerPageImage || book.coverImage}
-                    alt={`${book.title} inner page`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const img = e.target as HTMLImageElement;
-                      img.src = book.coverImage;
-                    }}
-                    loading="lazy"
-                  />
+                <div className="space-y-2">
+                  <div className="flex justify-center gap-2 mb-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleZoomOut('innerPage')}
+                      disabled={innerPageZoom <= 0.5}
+                    >
+                      <ZoomOut className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => resetZoom('innerPage')}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleZoomIn('innerPage')}
+                      disabled={innerPageZoom >= 3}
+                    >
+                      <ZoomIn className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="aspect-[3/4] overflow-auto rounded-lg bg-muted border">
+                    <img
+                      src={book.innerPageImage || book.coverImage}
+                      alt={`${book.title} inner page`}
+                      className="w-full h-full object-contain transition-transform duration-200"
+                      style={{ transform: `scale(${innerPageZoom})` }}
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = book.coverImage;
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </TabsContent>
             </Tabs>
@@ -154,7 +237,9 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
               className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
               size="lg"
             >
+              <MessageCircle className="h-4 w-4 mr-2" />
               Contact to rent
+              <ExternalLink className="h-4 w-4 ml-2" />
             </Button>
           </div>
         </div>

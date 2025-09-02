@@ -10,7 +10,7 @@ const libraryHours = [
 
 export default function Contact() {
   const handleWhatsAppClick = () => {
-    const phoneNumber = '+919876543210';
+    const phoneNumber = '+91 7506037304';
     const message = 'Hello! I would like to know more about WisdomWings library services.';
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -39,7 +39,7 @@ export default function Contact() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary" />
-                <span className="text-foreground font-medium">+91 98765 43210</span>
+                <span className="text-foreground font-medium">+91 7506 03 7304</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MessageCircle className="h-5 w-5 text-primary" />
@@ -48,21 +48,14 @@ export default function Contact() {
                   onClick={handleWhatsAppClick}
                   className="p-0 h-auto text-foreground font-medium"
                 >
-                  WhatsApp: +91 98765 43210
+                  WhatsApp: +91 7506 03 7304
                 </Button>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary" />
-                <a href="mailto:info@wisdomwings.com" className="text-foreground font-medium hover:text-primary">
-                  info@wisdomwings.com
+                <a href="mailto:read.wisdomwings@gmail.com" className="text-foreground font-medium hover:text-primary">
+                  read.wisdomwings@gmail.com
                 </a>
-              </div>
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                <div>
-                  <p className="text-foreground font-medium">Community Library, Sector 12</p>
-                  <p className="text-sm text-muted-foreground">Residential Society, Near Main Gate</p>
-                </div>
               </div>
             </div>
           </div>

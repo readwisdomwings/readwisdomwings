@@ -22,7 +22,7 @@ export default function Books() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('all');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<'title-asc' | 'title-desc' | 'author-asc' | 'author-desc' | 'rent-asc' | 'rent-desc'>('title-asc');
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -52,8 +52,22 @@ export default function Books() {
 
     // Sort books
     filtered.sort((a, b) => {
-      const comparison = a.title.localeCompare(b.title);
-      return sortOrder === 'asc' ? comparison : -comparison;
+      switch (sortOrder) {
+        case 'title-asc':
+          return a.title.localeCompare(b.title);
+        case 'title-desc':
+          return b.title.localeCompare(a.title);
+        case 'author-asc':
+          return a.author.localeCompare(b.author);
+        case 'author-desc':
+          return b.author.localeCompare(a.author);
+        case 'rent-asc':
+          return a.weeklyRent - b.weeklyRent;
+        case 'rent-desc':
+          return b.weeklyRent - a.weeklyRent;
+        default:
+          return a.title.localeCompare(b.title);
+      }
     });
 
     setFilteredBooks(filtered);
@@ -146,21 +160,45 @@ export default function Books() {
             </Select>
 
             {/* Sort */}
-            <Select value={sortOrder} onValueChange={(value: 'asc' | 'desc') => setSortOrder(value)}>
+            <Select value={sortOrder} onValueChange={(value: typeof sortOrder) => setSortOrder(value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="asc">
+                <SelectItem value="title-asc">
                   <div className="flex items-center gap-2">
                     <SortAsc className="h-4 w-4" />
-                    A-Z
+                    Title: A-Z
                   </div>
                 </SelectItem>
-                <SelectItem value="desc">
+                <SelectItem value="title-desc">
                   <div className="flex items-center gap-2">
                     <SortDesc className="h-4 w-4" />
-                    Z-A
+                    Title: Z-A
+                  </div>
+                </SelectItem>
+                <SelectItem value="author-asc">
+                  <div className="flex items-center gap-2">
+                    <SortAsc className="h-4 w-4" />
+                    Author: A-Z
+                  </div>
+                </SelectItem>
+                <SelectItem value="author-desc">
+                  <div className="flex items-center gap-2">
+                    <SortDesc className="h-4 w-4" />
+                    Author: Z-A
+                  </div>
+                </SelectItem>
+                <SelectItem value="rent-asc">
+                  <div className="flex items-center gap-2">
+                    <SortAsc className="h-4 w-4" />
+                    Rent: Low to High
+                  </div>
+                </SelectItem>
+                <SelectItem value="rent-desc">
+                  <div className="flex items-center gap-2">
+                    <SortDesc className="h-4 w-4" />
+                    Rent: High to Low
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -173,7 +211,7 @@ export default function Books() {
                 setSearchTerm('');
                 setSelectedCategory('all');
                 setSelectedAgeGroup('all');
-                setSortOrder('asc');
+                setSortOrder('title-asc');
               }}
             >
               Reset Filters
