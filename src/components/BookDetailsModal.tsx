@@ -16,6 +16,7 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [coverZoom, setCoverZoom] = useState(1);
   const [innerPageZoom, setInnerPageZoom] = useState(1);
+  const [activeTab, setActiveTab] = useState("cover");
   
   if (!book) return null;
 
@@ -43,8 +44,10 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
     }
   };
 
-  const resetZoom = (type: 'cover' | 'innerPage') => {
-    if (type === 'cover') {
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    // Auto-reset zoom when switching tabs
+    if (value === "cover") {
       setCoverZoom(1);
     } else {
       setInnerPageZoom(1);
@@ -64,38 +67,13 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <Tabs defaultValue="cover" className="w-full">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="cover">Cover</TabsTrigger>
                 <TabsTrigger value="inner">Inner Page</TabsTrigger>
               </TabsList>
               <TabsContent value="cover" className="mt-4">
-                <div className="space-y-2">
-                  <div className="flex justify-center gap-2 mb-2">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleZoomOut('cover')}
-                      disabled={coverZoom <= 0.5}
-                    >
-                      <ZoomOut className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => resetZoom('cover')}
-                    >
-                      Reset
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleZoomIn('cover')}
-                      disabled={coverZoom >= 3}
-                    >
-                      <ZoomIn className="h-4 w-4" />
-                    </Button>
-                  </div>
+                <div className="relative">
                   <div className="aspect-[3/4] overflow-auto rounded-lg bg-muted border">
                     <img
                       src={book.coverImage}
@@ -109,35 +87,30 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
                       loading="lazy"
                     />
                   </div>
+                  <div className="absolute top-2 right-2 flex gap-1 bg-background/80 backdrop-blur-sm rounded-md p-1 shadow-md">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleZoomOut('cover')}
+                      disabled={coverZoom <= 0.5}
+                      className="h-8 w-8"
+                    >
+                      <ZoomOut className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleZoomIn('cover')}
+                      disabled={coverZoom >= 3}
+                      className="h-8 w-8"
+                    >
+                      <ZoomIn className="h-3 w-3" />
+                    </Button>
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="inner" className="mt-4">
-                <div className="space-y-2">
-                  <div className="flex justify-center gap-2 mb-2">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleZoomOut('innerPage')}
-                      disabled={innerPageZoom <= 0.5}
-                    >
-                      <ZoomOut className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => resetZoom('innerPage')}
-                    >
-                      Reset
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleZoomIn('innerPage')}
-                      disabled={innerPageZoom >= 3}
-                    >
-                      <ZoomIn className="h-4 w-4" />
-                    </Button>
-                  </div>
+                <div className="relative">
                   <div className="aspect-[3/4] overflow-auto rounded-lg bg-muted border">
                     <img
                       src={book.innerPageImage || book.coverImage}
@@ -150,6 +123,26 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
                       }}
                       loading="lazy"
                     />
+                  </div>
+                  <div className="absolute top-2 right-2 flex gap-1 bg-background/80 backdrop-blur-sm rounded-md p-1 shadow-md">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleZoomOut('innerPage')}
+                      disabled={innerPageZoom <= 0.5}
+                      className="h-8 w-8"
+                    >
+                      <ZoomOut className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleZoomIn('innerPage')}
+                      disabled={innerPageZoom >= 3}
+                      className="h-8 w-8"
+                    >
+                      <ZoomIn className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
               </TabsContent>
