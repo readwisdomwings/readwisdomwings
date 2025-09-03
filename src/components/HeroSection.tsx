@@ -16,48 +16,42 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-fun-purple/10 via-background to-fun-orange/10 py-12 md:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-subtle opacity-50"></div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="page-title fun-gradient-text">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 {branding?.bannerTitle || 'Build reading habits. Read delightful children\'s books.'}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
+              <p className="text-lg text-muted-foreground max-w-xl">
                 {branding?.bannerSubTitle || 'A friendly, community-powered kids library. Small refundable deposit, low weekly rent, lots of joy.'}
               </p>
             </div>
-            <Button size="lg" variant="fun" asChild className="text-lg px-8 py-4">
-              <Link to="/books">🚀 Explore Collection</Link>
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+              <Link to="/books">Explore Collection</Link>
             </Button>
           </div>
 
           {/* Banner Image */}
           <div className="relative">
             {branding?.bannerImage ? (
-              <div className="relative">
-                <img
-                  src={branding.bannerImage}
-                  alt="Children reading books"
-                  className="w-full h-auto rounded-3xl shadow-2xl playful-glow"
-                  loading="lazy"
-                  style={{ aspectRatio: '1600/896' }}
-                />
-                <div className="absolute -top-4 -right-4 text-4xl animate-bounce">🌟</div>
-                <div className="absolute -bottom-4 -left-4 text-3xl animate-pulse">📚</div>
-              </div>
+              <img
+                src={branding.bannerImage}
+                alt="Children reading books"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                loading="lazy"
+                style={{ aspectRatio: '1600/896' }}
+              />
             ) : (
-              <div className="w-full h-96 bg-gradient-fun rounded-3xl flex items-center justify-center playful-glow relative overflow-hidden">
-                <div className="text-center space-y-6 relative z-10">
-                  <div className="w-32 h-32 mx-auto bg-white/20 rounded-full flex items-center justify-center playful-bounce">
-                    <span className="text-6xl">📚</span>
+              <div className="w-full h-96 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <div className="w-24 h-24 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-4xl">📚</span>
                   </div>
-                  <p className="text-white text-lg font-medium">Beautiful children's reading illustration</p>
+                  <p className="text-muted-foreground">Beautiful children's reading illustration</p>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent"></div>
               </div>
             )}
           </div>

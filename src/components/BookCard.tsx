@@ -7,21 +7,20 @@ import bookPlaceholder from '@/assets/book-placeholder.jpg';
 export function BookCard({ book, onDetailsClick }: BookCardProps) {
   return (
     <Card 
-      className="group overflow-hidden bg-gradient-card playful-glow hover:scale-105 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-primary/20"
+      className="group overflow-hidden bg-gradient-to-br from-card via-card to-card/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-primary/10"
       onClick={() => onDetailsClick(book)}
     >
       <div className="aspect-[3/4] relative overflow-hidden p-3">
         <img
           src={book.coverImage}
           alt={`Cover of ${book.title}`}
-          className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-full object-cover rounded transition-transform duration-300 group-hover:scale-105"
           onError={(e) => {
             const img = e.target as HTMLImageElement;
             img.src = bookPlaceholder;
           }}
           loading="lazy"
         />
-        <div className="absolute top-5 right-5 text-lg animate-pulse">✨</div>
       </div>
       
       <CardContent className="p-4 space-y-3">

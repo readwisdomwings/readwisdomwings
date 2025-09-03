@@ -20,31 +20,29 @@ const benefits = [
 ];
 
 export function BenefitsSection() {
-  const cardColors = ['from-fun-purple to-fun-blue', 'from-fun-orange to-fun-yellow', 'from-fun-green to-fun-blue'];
-  
   return (
-    <section className="py-20 bg-background relative">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="section-title fun-gradient-text mb-6">
-            ✨ Benefits of Reading
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Benefits of Reading
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Stories spark curiosity, empathy and imagination. A library makes it easy and affordable to keep this habit.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="text-center border-none playful-glow hover:scale-105 transition-all duration-300 bg-gradient-card">
+            <Card key={index} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-8">
-                <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${cardColors[index]} rounded-2xl flex items-center justify-center shadow-lg`}>
-                  <benefit.icon className="h-10 w-10 text-white" />
+                <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+                  <benefit.icon className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-4">
+                <h3 className="text-xl font-semibold text-foreground mb-4">
                   {benefit.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground">
                   {benefit.description}
                 </p>
               </CardContent>

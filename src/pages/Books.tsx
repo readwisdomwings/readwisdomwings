@@ -102,14 +102,13 @@ export default function Books() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-fun-purple/10 via-fun-orange/5 to-fun-yellow/10 py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="page-title fun-gradient-text mb-6">
-            📚 All Books
+      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            All Books
           </h1>
-          <p className="text-xl text-muted-foreground">
-            Explore our collection of {allBooks.length} children's books ✨
+          <p className="text-lg text-muted-foreground">
+            Explore our collection of {allBooks.length} children's books
           </p>
         </div>
       </div>
