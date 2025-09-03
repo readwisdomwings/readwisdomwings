@@ -2,76 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Kids & Parents Library - Fresh and Colorful Design System */
+/* Kids Library - Vibrant and Playful Design System */
 
 @layer base {
   :root {
-    --background: 220 18% 97%;
-    --foreground: 230 15% 15%;
+    --background: 248 100% 98%;
+    --foreground: 251 35% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 230 15% 15%;
+    --card-foreground: 251 35% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 15% 15%;
+    --popover-foreground: 251 35% 15%;
 
-    --primary: 212 95% 45%;
+    --primary: 267 88% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 88%;
-    --secondary-foreground: 230 15% 15%;
+    --secondary: 267 88% 95%;
+    --secondary-foreground: 267 88% 20%;
 
-    --muted: 215 20% 95%;
-    --muted-foreground: 215 15% 45%;
+    --muted: 248 50% 96%;
+    --muted-foreground: 251 20% 45%;
 
-    --accent: 168 85% 52%;
-    --accent-foreground: 230 15% 15%;
+    --accent: 25 95% 60%;
+    --accent-foreground: 251 35% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 90%;
-    --input: 215 20% 90%;
-    --ring: 212 95% 45%;
+    --border: 248 50% 90%;
+    --input: 248 50% 90%;
+    --ring: 267 88% 55%;
 
-    --success: 142 76% 36%;
+    --success: 142 76% 45%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
+    --warning: 38 92% 55%;
     --warning-foreground: 0 0% 100%;
 
-    --library-warm: 25 95% 53%;
-    --library-warm-foreground: 0 0% 100%;
+    --fun-purple: 267 88% 55%;
+    --fun-purple-light: 267 88% 95%;
+    --fun-orange: 25 95% 60%;
+    --fun-orange-light: 25 95% 95%;
+    --fun-yellow: 48 95% 65%;
+    --fun-yellow-light: 48 95% 95%;
+    --fun-blue: 212 95% 55%;
+    --fun-blue-light: 212 95% 95%;
+    --fun-green: 168 85% 55%;
+    --fun-green-light: 168 85% 95%;
 
-    --library-neutral: 215 20% 95%;
-    --library-neutral-foreground: 230 15% 15%;
+    --gradient-hero: linear-gradient(135deg, hsl(267 88% 55%), hsl(25 95% 60%), hsl(48 95% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(248 100% 98%));
+    --gradient-fun: linear-gradient(120deg, hsl(267 88% 55%), hsl(212 95% 55%), hsl(168 85% 55%));
+    --gradient-warm: linear-gradient(90deg, hsl(25 95% 60%), hsl(48 95% 65%));
+    --gradient-subtle: radial-gradient(circle at 20% 80%, hsl(267 88% 55% / 0.06) 0%, transparent 50%), 
+                       radial-gradient(circle at 80% 20%, hsl(25 95% 60% / 0.06) 0%, transparent 50%),
+                       radial-gradient(circle at 40% 40%, hsl(48 95% 65% / 0.04) 0%, transparent 50%);
 
-    --library-teal: 168 85% 52%;
-    --library-blue: 212 95% 45%;
-    --library-purple: 262 80% 65%;
+    --shadow-playful: 0 4px 20px -4px hsl(267 88% 55% / 0.15), 0 2px 8px -2px hsl(267 88% 55% / 0.1);
+    --shadow-playful-hover: 0 12px 40px -12px hsl(267 88% 55% / 0.25), 0 6px 20px -6px hsl(267 88% 55% / 0.15);
+    --shadow-warm: 0 4px 20px -4px hsl(25 95% 60% / 0.15), 0 2px 8px -2px hsl(25 95% 60% / 0.1);
+    --shadow-card: 0 2px 12px -4px hsl(251 35% 15% / 0.08), 0 1px 6px -2px hsl(251 35% 15% / 0.05);
+    --shadow-card-hover: 0 8px 25px -8px hsl(251 35% 15% / 0.15), 0 4px 12px -4px hsl(251 35% 15% / 0.1);
 
-    --gradient-hero: linear-gradient(135deg, hsl(212 95% 45%), hsl(168 85% 52%), hsl(262 80% 65%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 18% 97%));
-    --gradient-knowledge: linear-gradient(90deg, hsl(168 85% 52%), hsl(212 95% 45%), hsl(262 80% 65%));
-    --gradient-subtle: radial-gradient(circle at 20% 80%, hsl(212 95% 45% / 0.04) 0%, transparent 50%), 
-                       radial-gradient(circle at 80% 20%, hsl(168 85% 52% / 0.04) 0%, transparent 50%),
-                       radial-gradient(circle at 40% 40%, hsl(262 80% 65% / 0.02) 0%, transparent 50%);
+    --radius: 1rem;
 
-    --shadow-card: 0 2px 12px -4px hsl(230 15% 15% / 0.06), 0 1px 6px -2px hsl(230 15% 15% / 0.04);
-    --shadow-card-hover: 0 8px 25px -8px hsl(230 15% 15% / 0.12), 0 4px 12px -4px hsl(230 15% 15% / 0.08);
-    --shadow-modern: 0 4px 20px -4px hsl(212 95% 45% / 0.1), 0 2px 8px -2px hsl(212 95% 45% / 0.06);
-    --shadow-modern-hover: 0 12px 40px -12px hsl(212 95% 45% / 0.2), 0 6px 20px -6px hsl(212 95% 45% / 0.12);
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 220 18% 97%;
-    --sidebar-foreground: 230 15% 15%;
-    --sidebar-primary: 212 95% 45%;
+    --sidebar-background: 248 100% 98%;
+    --sidebar-foreground: 251 35% 15%;
+    --sidebar-primary: 267 88% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 25% 88%;
-    --sidebar-accent-foreground: 230 15% 15%;
-    --sidebar-border: 215 20% 90%;
-    --sidebar-ring: 212 95% 45%;
+    --sidebar-accent: 267 88% 95%;
+    --sidebar-accent-foreground: 267 88% 20%;
+    --sidebar-border: 248 50% 90%;
+    --sidebar-ring: 267 88% 55%;
   }
 }
 
@@ -84,7 +87,7 @@
     @apply bg-background text-foreground relative;
   }
 
-  /* Subtle book-inspired background effect */
+  /* Playful kids-inspired background with floating elements */
   body::before {
     content: '';
     position: fixed;
@@ -93,19 +96,75 @@
     width: 100%;
     height: 100%;
     background: var(--gradient-subtle);
-    background-size: 400px 400px, 300px 300px, 200px 200px;
-    animation: gentle-float 30s ease-in-out infinite;
+    background-size: 600px 600px, 400px 400px, 300px 300px;
+    animation: gentle-float 25s ease-in-out infinite;
     pointer-events: none;
     z-index: -1;
   }
 
-  /* Gentle animations for knowledge theme */
+  /* Floating decorative elements */
+  body::after {
+    content: '📚 🌟 🚀 ⭐ 📖 🎨 🌙 ✨ 🎯 📝 🌈 🔥';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+    animation: float-elements 40s linear infinite;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    gap: 4rem;
+  }
+
+  /* Playful animations for kids theme */
   @keyframes gentle-float {
     0%, 100% {
       background-position: 0% 0%, 100% 100%, 50% 50%;
+      transform: rotate(0deg);
+    }
+    33% {
+      background-position: 50% 100%, 0% 50%, 100% 0%;
+      transform: rotate(1deg);
+    }
+    66% {
+      background-position: 100% 50%, 100% 0%, 0% 100%;
+      transform: rotate(-1deg);
+    }
+  }
+
+  @keyframes float-elements {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-10px) rotate(2deg);
     }
     50% {
-      background-position: 100% 50%, 0% 50%, 100% 0%;
+      transform: translateY(-5px) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-15px) rotate(-2deg);
+    }
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+  }
+
+  @keyframes playful-bounce {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+      box-shadow: var(--shadow-playful);
+    }
+    50% {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-playful-hover);
     }
   }
 
@@ -114,32 +173,57 @@
       box-shadow: var(--shadow-warm);
     }
     50% {
-      box-shadow: var(--shadow-warm-hover);
+      box-shadow: var(--shadow-playful-hover);
     }
   }
 
-  /* Modern utility classes */
-  .modern-glow {
-    box-shadow: var(--shadow-modern);
-    transition: box-shadow 0.3s ease;
+  /* Playful utility classes */
+  .playful-glow {
+    box-shadow: var(--shadow-playful);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .modern-glow:hover {
-    box-shadow: var(--shadow-modern-hover);
+  .playful-glow:hover {
+    box-shadow: var(--shadow-playful-hover);
+    transform: translateY(-2px);
   }
 
-  .modern-pulse {
-    animation: modern-glow 3s ease-in-out infinite;
+  .playful-bounce {
+    animation: playful-bounce 3s ease-in-out infinite;
   }
 
-  .modern-border {
-    border: 1px solid hsl(var(--primary));
-    box-shadow: 0 0 12px hsl(var(--primary) / 0.1);
+  .fun-border {
+    border: 2px solid hsl(var(--primary));
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15);
   }
 
   .glass-effect {
-    background: hsl(var(--background) / 0.8);
-    backdrop-filter: blur(8px);
-    border: 1px solid hsl(var(--border) / 0.5);
+    background: hsl(var(--background) / 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.3);
+  }
+
+  .fun-gradient-text {
+    background: var(--gradient-fun);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .page-title {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .section-title {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 }

@@ -52,13 +52,14 @@ export default function FAQs() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Frequently Asked Questions
+      <div className="bg-gradient-to-br from-fun-purple/10 via-fun-orange/5 to-fun-yellow/10 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="page-title fun-gradient-text mb-6">
+            ❓ Frequently Asked Questions
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Find answers to common questions about our library services
+          <p className="text-xl text-muted-foreground">
+            Find answers to common questions about our library services 💡
           </p>
         </div>
       </div>
@@ -83,22 +84,22 @@ export default function FAQs() {
         </Accordion>
 
         {/* Contact Section */}
-        <div className="mt-12 text-center bg-card rounded-lg border p-8">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Still have questions?
+        <div className="mt-16 text-center bg-gradient-fun rounded-3xl p-12 text-white playful-glow">
+          <h3 className="text-3xl font-bold mb-6">
+            🤔 Still have questions?
           </h3>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-lg mb-8 opacity-90">
             Can't find what you're looking for? Feel free to reach out to us directly.
           </p>
-          <div className="space-y-4">
-            <p className="text-foreground">
-              <strong>WhatsApp:</strong> +91 7506 03 7304
+          <div className="space-y-4 text-lg">
+            <p>
+              <strong>📱 WhatsApp:</strong> +91 7506 03 7304
             </p>
-            <p className="text-foreground">
-              <strong>Email:</strong> read.wisdomwings@gmail.com
+            <p>
+              <strong>📧 Email:</strong> read.wisdomwings@gmail.com
             </p>
-            <p className="text-foreground">
-              <strong>Hours:</strong> Monday - Sunday, 10:00 AM - 8:00 PM
+            <p>
+              <strong>🕐 Hours:</strong> Monday - Sunday, 10:00 AM - 8:00 PM
             </p>
           </div>
         </div>

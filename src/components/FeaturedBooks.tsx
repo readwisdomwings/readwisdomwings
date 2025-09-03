@@ -83,12 +83,12 @@ export function FeaturedBooks({ title, sectionKey }: FeaturedBooksProps) {
   const displayTitle = branding ? getSectionName(branding, sectionKey) : title;
 
   return (
-    <section className="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+    <section className="py-20 bg-gradient-to-br from-fun-purple/5 to-fun-orange/5 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-3xl font-bold text-foreground">{displayTitle}</h3>
-          <Button variant="outline" asChild>
-            <Link to="/books">Show more</Link>
+        <div className="flex items-center justify-between mb-12">
+          <h3 className="section-title fun-gradient-text">📚 {displayTitle}</h3>
+          <Button variant="outline" asChild className="font-semibold">
+            <Link to="/books">Show more 🚀</Link>
           </Button>
         </div>
 

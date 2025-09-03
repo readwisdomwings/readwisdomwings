@@ -20,13 +20,14 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Contact Us
+      <div className="bg-gradient-to-br from-fun-purple/10 via-fun-orange/5 to-fun-yellow/10 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="page-title fun-gradient-text mb-6">
+            📞 Contact Us
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Get in touch with WisdomWings - we're here to help with all your reading needs
+          <p className="text-xl text-muted-foreground">
+            Get in touch with WisdomWings - we're here to help with all your reading needs 💫
           </p>
         </div>
       </div>
@@ -61,17 +62,19 @@ export default function Contact() {
           </div>
 
           {/* Library Hours */}
-          <Card className="border-none shadow-lg">
-            <CardContent className="p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <Clock className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-foreground">Library Hours</h3>
+          <Card className="border-none playful-glow bg-gradient-card">
+            <CardContent className="p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-fun rounded-xl flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">🕐 Library Hours</h3>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {libraryHours.map((schedule, index) => (
-                  <div key={index} className="flex justify-between items-center py-1">
-                    <span className="text-sm text-foreground">{schedule.day}</span>
-                    <span className="text-sm text-muted-foreground">{schedule.hours}</span>
+                  <div key={index} className="flex justify-between items-center py-2 border-b border-border last:border-b-0">
+                    <span className="font-medium text-foreground">{schedule.day}</span>
+                    <span className="text-muted-foreground">{schedule.hours}</span>
                   </div>
                 ))}
               </div>
