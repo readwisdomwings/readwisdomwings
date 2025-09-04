@@ -17,6 +17,7 @@ export interface BrandingData {
   section3Name: string;
   section3Books: string[];
   popularBookSeriesImages: string[];
+  featuredBooks: string[];
 }
 
 export class GoogleSheetsService {
@@ -70,7 +71,8 @@ export class GoogleSheetsService {
         section2Books: [],
         section3Name: 'Books for Everyone',
         section3Books: [],
-        popularBookSeriesImages: []
+        popularBookSeriesImages: [],
+        featuredBooks: []
       };
     }
   }
@@ -258,7 +260,8 @@ export class GoogleSheetsService {
         section2Books: [],
         section3Name: 'Books for Everyone',
         section3Books: [],
-        popularBookSeriesImages: []
+        popularBookSeriesImages: [],
+        featuredBooks: []
       };
     }
     
@@ -309,7 +312,34 @@ export class GoogleSheetsService {
         cellData.get('Z4'),
         cellData.get('Z5'),
         cellData.get('Z6')
-      ].map(url => this.processImageUrl(url || '')).filter(Boolean)
+      ].map(url => this.processImageUrl(url || '')).filter(Boolean),
+      featuredBooks: [
+        cellData.get('AA2'),
+        cellData.get('AA3'),
+        cellData.get('AA4'),
+        cellData.get('AA5'),
+        cellData.get('AA6'),
+        cellData.get('AA7'),
+        cellData.get('AA8'),
+        cellData.get('AA9'),
+        cellData.get('AA10'),
+        cellData.get('AA11'),
+        cellData.get('AA12'),
+        cellData.get('AA13'),
+        cellData.get('AA14'),
+        cellData.get('AA15'),
+        cellData.get('AA16'),
+        cellData.get('AA17'),
+        cellData.get('AA18'),
+        cellData.get('AA19'),
+        cellData.get('AA20'),
+        cellData.get('AA21'),
+        cellData.get('AA22'),
+        cellData.get('AA23'),
+        cellData.get('AA24'),
+        cellData.get('AA25'),
+        cellData.get('AA26')
+      ].filter(Boolean)
     };
   }
 

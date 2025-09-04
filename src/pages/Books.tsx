@@ -13,6 +13,7 @@ const BOOKS_PER_PAGE = 20;
 export default function Books() {
   const [allBooks, setAllBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
+  const [featuredBookIds, setFeaturedBookIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,22 +23,26 @@ export default function Books() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('all');
-  const [sortOrder, setSortOrder] = useState<'title-asc' | 'title-desc' | 'author-asc' | 'author-desc' | 'rent-asc' | 'rent-desc'>('title-asc');
+  const [sortOrder, setSortOrder] = useState<'featured' | 'title-asc' | 'title-desc' | 'author-asc' | 'author-desc' | 'rent-asc' | 'rent-desc'>('featured');
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    const fetchData = async () => {
       try {
-        const booksData = await GoogleSheetsService.getInstance().fetchBooks();
+        const [booksData, brandingData] = await Promise.all([
+          GoogleSheetsService.getInstance().fetchBooks(),
+          GoogleSheetsService.getInstance().fetchBrandingData()
+        ]);
         setAllBooks(booksData);
+        setFeaturedBookIds(brandingData.featuredBooks);
         setFilteredBooks(booksData);
       } catch (error) {
-        console.error('Error fetching books:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBooks();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -51,28 +56,48 @@ export default function Books() {
     });
 
     // Sort books
-    filtered.sort((a, b) => {
-      switch (sortOrder) {
-        case 'title-asc':
-          return a.title.localeCompare(b.title);
-        case 'title-desc':
-          return b.title.localeCompare(a.title);
-        case 'author-asc':
-          return a.author.localeCompare(b.author);
-        case 'author-desc':
-          return b.author.localeCompare(a.author);
-        case 'rent-asc':
-          return a.weeklyRent - b.weeklyRent;
-        case 'rent-desc':
-          return b.weeklyRent - a.weeklyRent;
-        default:
-          return a.title.localeCompare(b.title);
-      }
-    });
+    if (sortOrder === 'featured') {
+      // Sort by featured: featured books first (in order from AA2-AA26), then remaining books
+      filtered.sort((a, b) => {
+        const aFeaturedIndex = featuredBookIds.indexOf(a.id);
+        const bFeaturedIndex = featuredBookIds.indexOf(b.id);
+        
+        // If both are featured, sort by their order in the featured list
+        if (aFeaturedIndex !== -1 && bFeaturedIndex !== -1) {
+          return aFeaturedIndex - bFeaturedIndex;
+        }
+        
+        // If only one is featured, featured book comes first
+        if (aFeaturedIndex !== -1) return -1;
+        if (bFeaturedIndex !== -1) return 1;
+        
+        // If neither is featured, sort alphabetically by title
+        return a.title.localeCompare(b.title);
+      });
+    } else {
+      filtered.sort((a, b) => {
+        switch (sortOrder) {
+          case 'title-asc':
+            return a.title.localeCompare(b.title);
+          case 'title-desc':
+            return b.title.localeCompare(a.title);
+          case 'author-asc':
+            return a.author.localeCompare(b.author);
+          case 'author-desc':
+            return b.author.localeCompare(a.author);
+          case 'rent-asc':
+            return a.weeklyRent - b.weeklyRent;
+          case 'rent-desc':
+            return b.weeklyRent - a.weeklyRent;
+          default:
+            return a.title.localeCompare(b.title);
+        }
+      });
+    }
 
     setFilteredBooks(filtered);
     setCurrentPage(1); // Reset to first page when filters change
-  }, [allBooks, searchTerm, selectedCategory, selectedAgeGroup, sortOrder]);
+  }, [allBooks, searchTerm, selectedCategory, selectedAgeGroup, sortOrder, featuredBookIds]);
 
   const handleDetailsClick = (book: Book) => {
     setSelectedBook(book);
@@ -165,6 +190,12 @@ export default function Books() {
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="featured">
+                  <div className="flex items-center gap-2">
+                    <SortAsc className="h-4 w-4" />
+                    Sort by Featured
+                  </div>
+                </SelectItem>
                 <SelectItem value="title-asc">
                   <div className="flex items-center gap-2">
                     <SortAsc className="h-4 w-4" />
@@ -211,7 +242,7 @@ export default function Books() {
                 setSearchTerm('');
                 setSelectedCategory('all');
                 setSelectedAgeGroup('all');
-                setSortOrder('title-asc');
+                setSortOrder('featured');
               }}
             >
               Reset Filters
