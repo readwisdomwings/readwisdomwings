@@ -277,6 +277,42 @@ export class GoogleSheetsService {
       }
     }
     
+    // Extract featured books from AA2-AA22 with debugging
+    const featuredBooksRaw = [
+      cellData.get('AA2'),
+      cellData.get('AA3'),
+      cellData.get('AA4'),
+      cellData.get('AA5'),
+      cellData.get('AA6'),
+      cellData.get('AA7'),
+      cellData.get('AA8'),
+      cellData.get('AA9'),
+      cellData.get('AA10'),
+      cellData.get('AA11'),
+      cellData.get('AA12'),
+      cellData.get('AA13'),
+      cellData.get('AA14'),
+      cellData.get('AA15'),
+      cellData.get('AA16'),
+      cellData.get('AA17'),
+      cellData.get('AA18'),
+      cellData.get('AA19'),
+      cellData.get('AA20'),
+      cellData.get('AA21'),
+      cellData.get('AA22')
+    ];
+    
+    console.log('🔍 Raw featured books from AA2-AA22:', featuredBooksRaw);
+    
+    // Filter and clean featured books
+    const featuredBooks = featuredBooksRaw
+      .map(id => id?.trim())
+      .filter(id => id && id !== '' && id !== 'undefined')
+      .slice(0, 25); // Limit to first 25 books as per requirement
+    
+    console.log('✅ Cleaned featured books:', featuredBooks);
+    console.log(`📊 Found ${featuredBooks.length} valid featured book IDs`);
+    
     return {
       logo: this.processImageUrl(cellData.get('U2') || '') || '/placeholder.svg',
       bannerImage: this.processImageUrl(cellData.get('V2') || '') || '/placeholder.svg',
@@ -313,33 +349,7 @@ export class GoogleSheetsService {
         cellData.get('Z5'),
         cellData.get('Z6')
       ].map(url => this.processImageUrl(url || '')).filter(Boolean),
-      featuredBooks: [
-        cellData.get('AA2'),
-        cellData.get('AA3'),
-        cellData.get('AA4'),
-        cellData.get('AA5'),
-        cellData.get('AA6'),
-        cellData.get('AA7'),
-        cellData.get('AA8'),
-        cellData.get('AA9'),
-        cellData.get('AA10'),
-        cellData.get('AA11'),
-        cellData.get('AA12'),
-        cellData.get('AA13'),
-        cellData.get('AA14'),
-        cellData.get('AA15'),
-        cellData.get('AA16'),
-        cellData.get('AA17'),
-        cellData.get('AA18'),
-        cellData.get('AA19'),
-        cellData.get('AA20'),
-        cellData.get('AA21'),
-        cellData.get('AA22'),
-        cellData.get('AA23'),
-        cellData.get('AA24'),
-        cellData.get('AA25'),
-        cellData.get('AA26')
-      ].filter(Boolean)
+      featuredBooks
     };
   }
 

@@ -32,6 +32,25 @@ export default function Books() {
           GoogleSheetsService.getInstance().fetchBooks(),
           GoogleSheetsService.getInstance().fetchBrandingData()
         ]);
+        
+        console.log('📚 Total books loaded:', booksData.length);
+        console.log('🌟 Featured book IDs from branding:', brandingData.featuredBooks);
+        
+        // Log existing book IDs for comparison
+        const allBookIds = booksData.map(book => book.id);
+        console.log('📖 Available book IDs:', allBookIds.slice(0, 10), '... (showing first 10)');
+        
+        // Validate featured books exist in our book collection
+        const validFeaturedBooks = brandingData.featuredBooks.filter(featuredId => 
+          allBookIds.includes(featuredId)
+        );
+        const invalidFeaturedBooks = brandingData.featuredBooks.filter(featuredId => 
+          !allBookIds.includes(featuredId)
+        );
+        
+        console.log('✅ Valid featured books:', validFeaturedBooks);
+        console.log('❌ Invalid featured books (not found):', invalidFeaturedBooks);
+        
         setAllBooks(booksData);
         setFeaturedBookIds(brandingData.featuredBooks);
         setFilteredBooks(booksData);
@@ -57,7 +76,10 @@ export default function Books() {
 
     // Sort books
     if (sortOrder === 'featured') {
-      // Sort by featured: featured books first (in order from AA2-AA26), then remaining books
+      console.log('🎯 Sorting by featured order...');
+      console.log('Featured book IDs available:', featuredBookIds);
+      
+      // Sort by featured: featured books first (in order from AA2-AA22), then remaining books
       filtered.sort((a, b) => {
         const aFeaturedIndex = featuredBookIds.indexOf(a.id);
         const bFeaturedIndex = featuredBookIds.indexOf(b.id);
@@ -74,6 +96,10 @@ export default function Books() {
         // If neither is featured, sort alphabetically by title
         return a.title.localeCompare(b.title);
       });
+      
+      // Log the first few books after sorting to verify featured order
+      const featuredBooksInResult = filtered.filter(book => featuredBookIds.includes(book.id));
+      console.log('📋 Featured books found and sorted:', featuredBooksInResult.map(b => `${b.id}: ${b.title}`));
     } else {
       filtered.sort((a, b) => {
         switch (sortOrder) {
