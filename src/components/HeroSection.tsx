@@ -40,7 +40,7 @@ export function HeroSection() {
               <img
                 src={branding.bannerImage}
                 alt="Children reading books"
-                className="w-full h-auto rounded-2xl shadow-2xl"
+                className="w-full h-auto rounded-2xl no-shadow"
                 loading="lazy"
                 style={{ aspectRatio: '1600/896' }}
               />

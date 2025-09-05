@@ -227,7 +227,7 @@ export function BookDetailsModal({ book, isOpen, onClose }: BookDetailsModalProp
             
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-md hover:shadow-lg transition-all duration-200"
               size="lg"
             >
               <MessageCircle className="h-4 w-4 mr-2" />

@@ -2,65 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Kids & Parents Library - Fresh and Colorful Design System */
+/* WisdomWings - Stunning Color Design System */
 
 @layer base {
   :root {
-    --background: 220 18% 97%;
-    --foreground: 230 15% 15%;
+    --background: 0 0% 100%;
+    --foreground: 207 75% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 230 15% 15%;
+    --card-foreground: 207 75% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 230 15% 15%;
+    --popover-foreground: 207 75% 16%;
 
-    --primary: 212 95% 45%;
-    --primary-foreground: 0 0% 100%;
+    /* New Color Palette */
+    --primary: 207 75% 16%;              /* #092B46 - Dark Navy */
+    --primary-foreground: 0 0% 100%;     /* White text on primary */
 
-    --secondary: 210 25% 88%;
-    --secondary-foreground: 230 15% 15%;
+    --secondary: 15 100% 71%;            /* #FF966C - Warm Orange */
+    --secondary-foreground: 0 0% 100%;   /* White text on secondary */
 
-    --muted: 215 20% 95%;
-    --muted-foreground: 215 15% 45%;
+    --tertiary: 41 100% 74%;             /* #FFCE78 - Bright Yellow */
+    --tertiary-foreground: 207 75% 16%;  /* Dark text on tertiary */
 
-    --accent: 168 85% 52%;
-    --accent-foreground: 230 15% 15%;
+    --wisdomwings: 215 64% 16%;          /* #101F43 - WisdomWings header text */
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 41 100% 74%;               /* Using tertiary as accent */
+    --accent-foreground: 207 75% 16%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 90%;
-    --input: 215 20% 90%;
-    --ring: 212 95% 45%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 207 75% 16%;
 
-    --success: 142 76% 36%;
+    --success: 142 76% 36%;              /* Keep Available badge green */
     --success-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
 
-    --library-warm: 25 95% 53%;
+    /* Custom Design Variables */
+    --library-warm: 15 100% 71%;         /* Secondary color */
     --library-warm-foreground: 0 0% 100%;
 
-    --library-neutral: 215 20% 95%;
-    --library-neutral-foreground: 230 15% 15%;
+    --library-neutral: 220 14% 96%;
+    --library-neutral-foreground: 207 75% 16%;
 
-    --library-teal: 168 85% 52%;
-    --library-blue: 212 95% 45%;
-    --library-purple: 262 80% 65%;
+    --library-teal: 168 85% 52%;         /* Keep for legacy support */
+    --library-blue: 207 75% 16%;         /* Primary color */
+    --library-purple: 262 80% 65%;       /* Keep for accents */
 
-    --gradient-hero: linear-gradient(135deg, hsl(212 95% 45%), hsl(168 85% 52%), hsl(262 80% 65%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 18% 97%));
-    --gradient-knowledge: linear-gradient(90deg, hsl(168 85% 52%), hsl(212 95% 45%), hsl(262 80% 65%));
-    --gradient-subtle: radial-gradient(circle at 20% 80%, hsl(212 95% 45% / 0.04) 0%, transparent 50%), 
-                       radial-gradient(circle at 80% 20%, hsl(168 85% 52% / 0.04) 0%, transparent 50%),
-                       radial-gradient(circle at 40% 40%, hsl(262 80% 65% / 0.02) 0%, transparent 50%);
+    /* Updated Gradients with New Colors */
+    --gradient-hero: linear-gradient(135deg, hsl(207 75% 16%), hsl(15 100% 71%), hsl(41 100% 74%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 96%));
+    --gradient-knowledge: linear-gradient(90deg, hsl(15 100% 71%), hsl(207 75% 16%), hsl(41 100% 74%));
+    --gradient-subtle: radial-gradient(circle at 20% 80%, hsl(207 75% 16% / 0.03) 0%, transparent 50%), 
+                       radial-gradient(circle at 80% 20%, hsl(15 100% 71% / 0.03) 0%, transparent 50%),
+                       radial-gradient(circle at 40% 40%, hsl(41 100% 74% / 0.02) 0%, transparent 50%);
 
-    --shadow-card: 0 2px 12px -4px hsl(230 15% 15% / 0.06), 0 1px 6px -2px hsl(230 15% 15% / 0.04);
-    --shadow-card-hover: 0 8px 25px -8px hsl(230 15% 15% / 0.12), 0 4px 12px -4px hsl(230 15% 15% / 0.08);
-    --shadow-modern: 0 4px 20px -4px hsl(212 95% 45% / 0.1), 0 2px 8px -2px hsl(212 95% 45% / 0.06);
-    --shadow-modern-hover: 0 12px 40px -12px hsl(212 95% 45% / 0.2), 0 6px 20px -6px hsl(212 95% 45% / 0.12);
+    --shadow-card: 0 2px 12px -4px hsl(207 75% 16% / 0.06), 0 1px 6px -2px hsl(207 75% 16% / 0.04);
+    --shadow-card-hover: 0 8px 25px -8px hsl(207 75% 16% / 0.12), 0 4px 12px -4px hsl(207 75% 16% / 0.08);
+    --shadow-modern: 0 4px 20px -4px hsl(207 75% 16% / 0.1), 0 2px 8px -2px hsl(207 75% 16% / 0.06);
+    --shadow-modern-hover: 0 12px 40px -12px hsl(207 75% 16% / 0.2), 0 6px 20px -6px hsl(207 75% 16% / 0.12);
 
     --radius: 0.75rem;
 
@@ -118,6 +126,21 @@
     }
   }
 
+  /* WisdomWings Typography */
+  .wisdomwings-text {
+    font-family: 'Afacad', sans-serif;
+    color: hsl(var(--wisdomwings));
+    text-shadow: none !important;
+    font-weight: 600;
+  }
+
+  /* Remove all logo shadows */
+  .no-shadow, .no-shadow * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+
   /* Modern utility classes */
   .modern-glow {
     box-shadow: var(--shadow-modern);
@@ -141,5 +164,14 @@
     background: hsl(var(--background) / 0.8);
     backdrop-filter: blur(8px);
     border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  /* Icon treatments */
+  .icon-circle-tertiary {
+    background-color: hsl(var(--tertiary));
+  }
+
+  .icon-secondary {
+    color: hsl(var(--secondary));
   }
 }

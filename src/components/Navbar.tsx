@@ -33,19 +33,19 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3 no-shadow">
             {branding?.logo && branding.logo !== '/placeholder.svg' ? (
               <img 
                 src={branding.logo} 
                 alt="WisdomWings" 
-                className="h-8 w-auto"
+                className="h-8 w-auto no-shadow"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
               />
             ) : null}
-            <span className="text-xl font-bold text-primary" style={{ textShadow: 'none' }}>WisdomWings</span>
+            <span className="text-xl font-bold wisdomwings-text no-shadow">WisdomWings</span>
           </Link>
 
           {/* Desktop Navigation */}

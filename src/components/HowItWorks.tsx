@@ -39,8 +39,8 @@ export function HowItWorks() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <div key={index} className="text-center space-y-4">
-              <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <step.icon className="h-10 w-10 text-primary-foreground" />
+              <div className="w-20 h-20 mx-auto icon-circle-tertiary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <step.icon className="h-10 w-10 icon-secondary" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">
                 {step.title}

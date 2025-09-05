@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { FaviconUpdater } from "./components/FaviconUpdater";
 import Index from "./pages/Index";
 import Books from "./pages/Books";
 import FAQs from "./pages/FAQs";
@@ -18,6 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <FaviconUpdater />
       <BrowserRouter basename="/readwisdomwings">
         <Layout>
           <Routes>
