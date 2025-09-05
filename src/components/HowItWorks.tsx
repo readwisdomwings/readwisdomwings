@@ -19,7 +19,7 @@ const steps = [
   {
     icon: Package,
     title: 'Book Pickup',
-    description: 'Collect your books from our library location and enjoy reading with your children.'
+    description: 'Collect your books from our flat from R&S Wing and enjoy reading with your children.'
   }
 ];
 
@@ -32,7 +32,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="text-lg text-muted-foreground">
-            Getting books for your kids is as easy as 1, 2, 3, 4! Simple process, happy reading.
+            Getting books for your kids is easy! Simple process, happy reading.
           </p>
         </div>
 
