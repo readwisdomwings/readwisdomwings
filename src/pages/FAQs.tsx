@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 const faqs = [
   {
     question: "How does the book rental system work?",
-    answer: "Our rental system is simple: browse our collection, contact us via WhatsApp to request a book, pay the weekly rent plus a refundable security deposit, and pick up your books from our library location."
+    answer: "Our rental system is simple: browse our collection, contact us via WhatsApp to request a book, pay the weekly rent plus a refundable security deposit, and pick up your books from our flat from R&S Wing."
   },
   {
     question: "What is the rental period for books?",
@@ -30,15 +30,15 @@ const faqs = [
   },
   {
     question: "What age groups are your books suitable for?",
-    answer: "Our collection covers various age groups from toddlers (0-3 years) to young teens (12+ years). Each book listing shows the recommended age range."
+    answer: "Our collection covers various age groups from toddlers (0-3 years) to young teens (12+ years). Ofcourse, toddlers can not read by themselves, but parents can read stories for them. Each book listing shows the recommended age range."
   },
   {
     question: "How do I contact you for book rentals?",
     answer: "You can contact us via WhatsApp by clicking the floating WhatsApp button on our website or the 'Contact to Rent' button on any book's detail page."
   },
   {
-    question: "Can I explore the books at the library location in person?",
-    answer: "We have many books especially for kids. Thats why we offer exploring books online. Currently exploring the books at the library location is not feasible. But if you are interested in checking what's inside, you can click on 'Details' button, on the book details modal, you can click on 'Inner Page' to view an inner page of the book. Currently its available for some books, but we will be making it available for most of the books soon."
+    question: "Can I explore the books at the location (R&S Wing) in person?",
+    answer: "We have many books especially for kids. Thats why we are creating an experience to explore books online. Currently exploring the books at the library location is not feasible. But if you are interested in checking what's inside, you can click on 'Details' button, on the book details modal, you can click on 'Inner Page' to view an inner page of the book. Currently its available for some books, but we will be making it available for most of the books soon."
   },
   {
     question: "Can I reserve a book that's currently unavailable?",
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     question: "What payment methods do you accept?",
-    answer: "Payment details will be shared when you contact us for a rental. We do accept Googlepay, simple online payments"
+    answer: "Payment details will be shared when you contact us for a rental. We do accept Googlepay, the simple online payment method."
   }
 ];
 
