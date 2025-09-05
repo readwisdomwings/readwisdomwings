@@ -5,7 +5,7 @@ const benefits = [
   {
     icon: BookOpen,
     title: 'Build a daily habit',
-    description: 'Fresh books weekly keep kids excited to read beyond screens.'
+    description: 'Fresh books weekly keep kids excited to read more.'
   },
   {
     icon: Clock,
@@ -15,7 +15,7 @@ const benefits = [
   {
     icon: Users,
     title: 'Affordable for families',
-    description: 'Pay from ₹19 to ₹49 weekly vs ₹200 to ₹1000+ for buying new book each time.'
+    description: 'Pay ₹19 to ₹49 weekly vs. ₹200 to ₹1000+ for buying new book each time.'
   }
 ];
 
@@ -28,7 +28,7 @@ export function BenefitsSection() {
             Benefits of Reading
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stories spark curiosity, empathy and imagination. A library makes it easy and affordable to keep this habit.
+            Stories spark curiosity, empathy and imagination. Renting books make it easy and affordable to keep this habit.
           </p>
         </div>
 
