@@ -15,7 +15,7 @@ const benefits = [
   {
     icon: Users,
     title: 'Affordable for families',
-    description: 'Pay a tiny weekly rent vs. buying new each time.'
+    description: 'Pay from ₹19 to ₹49 weekly vs ₹200 to ₹1000+ for buying new book each time.'
   }
 ];
 
