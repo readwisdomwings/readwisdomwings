@@ -134,11 +134,16 @@
     font-weight: 600;
   }
 
-  /* Remove all logo shadows */
-  .no-shadow, .no-shadow * {
-    text-shadow: none !important;
+  /* Remove all shadows completely - enhanced */
+  .no-shadow, .no-shadow *, 
+  .logo, .logo *, 
+  .wisdomwings-text, 
+  nav .no-shadow,
+  nav .no-shadow * {
     box-shadow: none !important;
+    text-shadow: none !important;
     filter: none !important;
+    -webkit-filter: none !important;
   }
 
   /* Modern utility classes */

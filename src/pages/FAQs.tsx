@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 
 const faqs = [
   {
@@ -49,6 +51,17 @@ const faqs = [
 ];
 
 export default function FAQs() {
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
+  const handleExpandAll = () => {
+    const allItems = faqs.map((_, index) => `item-${index}`);
+    setOpenItems(allItems);
+  };
+
+  const handleCollapseAll = () => {
+    setOpenItems([]);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -65,7 +78,25 @@ export default function FAQs() {
 
       {/* FAQs Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <Accordion type="single" collapsible className="space-y-4">
+        {/* Expand/Collapse Controls */}
+        <div className="flex gap-4 justify-center mb-8">
+          <Button 
+            variant="outline" 
+            onClick={handleExpandAll}
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            Expand All
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={handleCollapseAll}
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            Collapse All
+          </Button>
+        </div>
+        
+        <Accordion type="multiple" value={openItems} onValueChange={setOpenItems} className="space-y-4">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
