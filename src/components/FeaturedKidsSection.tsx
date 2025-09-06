@@ -35,7 +35,7 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
     kid.name && kid.name.trim() !== ''
   ) || [];
 
-  // Add placeholder if it should be shown and has data
+  // Add placeholder if it should be shown and has data - always place as last item
   const allItems = [
     ...validFeaturedKids,
     ...(branding.showPlaceholder && branding.placeholderKid?.name ? [{ ...branding.placeholderKid, isPlaceholder: true }] : [])
@@ -62,11 +62,33 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
     return allItems.slice(startIndex, startIndex + itemsPerPage);
   };
 
+  const TruncatedText = ({ text, maxLength = 160 }: { text: string; maxLength?: number }) => {
+    const [showAll, setShowAll] = useState(false);
+    
+    if (text.length <= maxLength) {
+      return <p>{text}</p>;
+    }
+    
+    const truncatedText = text.substring(0, maxLength) + '...';
+    
+    return (
+      <div>
+        <p>{showAll ? text : truncatedText}</p>
+        <button 
+          onClick={() => setShowAll(!showAll)}
+          className="text-primary text-xs underline mt-1 hover:text-primary/80"
+        >
+          {showAll ? 'Show less' : 'Show more'}
+        </button>
+      </div>
+    );
+  };
+
   const FeaturedKidCard = ({ kid, isPlaceholder = false }: { kid: FeaturedKidData & { isPlaceholder?: boolean }, isPlaceholder?: boolean }) => (
-    <Card className="h-full">
-      <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
+    <Card className="h-full min-h-[360px]">
+      <CardContent className="p-6 flex flex-col text-left space-y-4 h-full">
         {/* Kid's Image */}
-        <div className="w-24 h-24 rounded-full overflow-hidden bg-muted">
+        <div className="w-24 h-24 rounded-full overflow-hidden bg-muted flex-shrink-0">
           {kid.image && kid.image !== '/placeholder.svg' ? (
             <img 
               src={kid.image} 
@@ -98,9 +120,11 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
 
         {/* Books Read or Explore Button */}
         {isPlaceholder ? (
-          <Button asChild className="mt-4">
-            <Link to="/books">Explore Books</Link>
-          </Button>
+          <div className="flex-grow flex flex-col justify-end">
+            <Button asChild className="mt-4">
+              <Link to="/books">Explore Books</Link>
+            </Button>
+          </div>
         ) : (
           <>
             <p className={`text-sm font-medium ${isPlaceholder ? 'text-muted-foreground' : 'text-primary'}`}>
@@ -109,11 +133,9 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
             
             {/* Book Names */}
             {kid.bookNames && (
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-muted-foreground flex-grow">
                 <p className="font-medium mb-1">Recent reads:</p>
-                <p className="line-clamp-3">
-                  {kid.bookNames}
-                </p>
+                <TruncatedText text={kid.bookNames} maxLength={160} />
               </div>
             )}
           </>

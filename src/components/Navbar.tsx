@@ -90,7 +90,7 @@ export function Navbar() {
           <div className="md:hidden py-4 space-y-2">
             {/* Mobile tagline */}
             <div className="px-3 py-2 text-xs text-muted-foreground text-center border-b border-border">
-              Serving young readers in our Venkatesh Graffiti Society.
+              Serving young readers in Venkatesh Graffiti.
             </div>
             {navigation.map((item) => (
               <Link
