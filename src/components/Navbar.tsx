@@ -47,7 +47,7 @@ export function Navbar() {
             ) : null}
             <div className="flex flex-col no-shadow">
               <span className="text-xl font-bold wisdomwings-text no-shadow">WisdomWings</span>
-              <span className="text-xs text-muted-foreground no-shadow hidden sm:block">Serving young readers in our Venkatesh Graffiti Society.</span>
+              <span className="text-xs text-muted-foreground no-shadow hidden sm:block">Serving young readers in Venkatesh Graffiti.</span>
             </div>
           </Link>
 
