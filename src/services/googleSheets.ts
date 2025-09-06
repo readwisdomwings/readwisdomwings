@@ -5,6 +5,14 @@ const SHEET_NAME = 'Sheet1';
 const BRANDING_SHEET = 'Sheet2';
 const API_KEY = 'AIzaSyBgYHQNsKZr1dJBdDqpxXdUjhGBUBU8K6k'; // Public read-only key for demo
 
+export interface FeaturedKidData {
+  name: string;
+  age: string;
+  booksRead: string;
+  bookNames: string;
+  image: string;
+}
+
 export interface BrandingData {
   logo: string;
   bannerImage: string;
@@ -18,6 +26,10 @@ export interface BrandingData {
   section3Books: string[];
   popularBookSeriesImages: string[];
   featuredBooks: string[];
+  showFeaturedKids: boolean;
+  featuredKids: FeaturedKidData[];
+  showPlaceholder: boolean;
+  placeholderKid: FeaturedKidData;
 }
 
 export class GoogleSheetsService {
@@ -72,7 +84,11 @@ export class GoogleSheetsService {
         section3Name: 'Books for Everyone',
         section3Books: [],
         popularBookSeriesImages: [],
-        featuredBooks: []
+        featuredBooks: [],
+        showFeaturedKids: false,
+        featuredKids: [],
+        showPlaceholder: false,
+        placeholderKid: { name: '', age: '', booksRead: '', bookNames: '', image: '' }
       };
     }
   }
@@ -261,7 +277,11 @@ export class GoogleSheetsService {
         section3Name: 'Books for Everyone',
         section3Books: [],
         popularBookSeriesImages: [],
-        featuredBooks: []
+        featuredBooks: [],
+        showFeaturedKids: false,
+        featuredKids: [],
+        showPlaceholder: false,
+        placeholderKid: { name: '', age: '', booksRead: '', bookNames: '', image: '' }
       };
     }
     
@@ -313,6 +333,36 @@ export class GoogleSheetsService {
     console.log('✅ Cleaned featured books:', featuredBooks);
     console.log(`📊 Found ${featuredBooks.length} valid featured book IDs`);
     
+    // Parse featured kids data
+    const showFeaturedKids = cellData.get('AB3')?.toLowerCase() === 'yes';
+    const featuredKids: FeaturedKidData[] = [];
+    
+    // Parse up to 4 featured kids
+    const kidStartRows = [4, 10, 16, 22]; // AB4, AB10, AB16, AB22
+    
+    for (const startRow of kidStartRows) {
+      const name = cellData.get(`AB${startRow}`)?.trim();
+      if (name && name !== '') {
+        featuredKids.push({
+          name,
+          age: cellData.get(`AB${startRow + 1}`) || '',
+          booksRead: cellData.get(`AB${startRow + 2}`) || '',
+          bookNames: cellData.get(`AB${startRow + 3}`) || '',
+          image: this.processImageUrl(cellData.get(`AB${startRow + 4}`) || '') || '/placeholder.svg'
+        });
+      }
+    }
+    
+    // Parse placeholder kid data
+    const showPlaceholder = cellData.get('AC3')?.toLowerCase() === 'yes';
+    const placeholderKid: FeaturedKidData = {
+      name: cellData.get('AC4') || '',
+      age: cellData.get('AC5') || '',
+      booksRead: cellData.get('AC6') || '',
+      bookNames: cellData.get('AC7') || '',
+      image: this.processImageUrl(cellData.get('AC8') || '') || '/placeholder.svg'
+    };
+
     return {
       logo: this.processImageUrl(cellData.get('U2') || '') || '/placeholder.svg',
       bannerImage: this.processImageUrl(cellData.get('V2') || '') || '/placeholder.svg',
@@ -349,7 +399,11 @@ export class GoogleSheetsService {
         cellData.get('Z5'),
         cellData.get('Z6')
       ].map(url => this.processImageUrl(url || '')).filter(Boolean),
-      featuredBooks
+      featuredBooks,
+      showFeaturedKids,
+      featuredKids,
+      showPlaceholder,
+      placeholderKid
     };
   }
 

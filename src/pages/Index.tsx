@@ -6,6 +6,7 @@ import { FeaturedBooks } from '@/components/FeaturedBooks';
 import { HowItWorks } from '@/components/HowItWorks';
 import { PopularBookSeries } from '@/components/PopularBookSeries';
 import { ContactSection } from '@/components/ContactSection';
+import { FeaturedKidsSection } from '@/components/FeaturedKidsSection';
 import { GoogleSheetsService } from '@/services/googleSheets';
 
 const Index = () => {
@@ -44,6 +45,7 @@ const Index = () => {
       <FeaturedBooks title="Interesting Comics" sectionKey="section2" />
       <FeaturedBooks title="Books for Everyone" sectionKey="section3" />
       <PopularBookSeries />
+      <FeaturedKidsSection />
       <HowItWorks />
       <ContactSection />
     </Layout>

@@ -45,7 +45,10 @@ export function Navbar() {
                 }}
               />
             ) : null}
-            <span className="text-xl font-bold wisdomwings-text no-shadow">WisdomWings</span>
+            <div className="flex flex-col no-shadow">
+              <span className="text-xl font-bold wisdomwings-text no-shadow">WisdomWings</span>
+              <span className="text-xs text-muted-foreground no-shadow hidden sm:block">Serving young readers in our Venkatesh Graffiti Society.</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -85,6 +88,10 @@ export function Navbar() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-2">
+            {/* Mobile tagline */}
+            <div className="px-3 py-2 text-xs text-muted-foreground text-center border-b border-border">
+              Serving young readers in our Venkatesh Graffiti Society.
+            </div>
             {navigation.map((item) => (
               <Link
                 key={item.name}
