@@ -104,7 +104,7 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
         ) : (
           <>
             <p className={`text-sm font-medium ${isPlaceholder ? 'text-muted-foreground' : 'text-primary'}`}>
-              Completed reading books from WisdomWings: {kid.booksRead}
+              {kid.booksRead}
             </p>
             
             {/* Book Names */}
