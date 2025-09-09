@@ -13,6 +13,10 @@ const faqs = [
     answer: "Our rental system is simple: browse our collection, contact us via WhatsApp to request a book, pay the weekly rent plus a refundable security deposit, and pick up your books from our flat from R&S Wing."
   },
   {
+    question: "How do I know if a book is suitable for my child?",
+    answer: "Each book includes the recommended age group, cover and inner page images and detailed description. We also have category filters to help you find age-appropriate content. If you're unsure, feel free to contact us for personalized recommendations."
+  },
+  {
     question: "What is the rental period for books?",
     answer: "Books are rented on a weekly basis. You can extend the rental period by paying additional weekly rent if needed."
   },
