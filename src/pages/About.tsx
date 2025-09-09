@@ -124,11 +124,11 @@ export default function About() {
               <div className="text-sm text-muted-foreground">Books in Collection</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">50+</div>
+              <div className="text-3xl font-bold text-primary">8+</div>
               <div className="text-sm text-muted-foreground">Active Members</div>
             </div>
             <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">500+</div>
+              <div className="text-3xl font-bold text-primary">13+</div>
               <div className="text-sm text-muted-foreground">Books Rented</div>
             </div>
           </div>
