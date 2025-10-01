@@ -1,13 +1,13 @@
 import { Phone, Mail, Clock, MessageCircle, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-{/*
+
 const libraryHours = [
   { day: 'Monday - Friday', hours: '10:00 AM - 8:00 PM' },
   { day: 'Saturday', hours: '10:00 AM - 9:00 PM' },
   { day: 'Sunday', hours: '11:00 AM - 7:00 PM' }
 ];
-*/}
+
 export default function Contact() {
   const handleWhatsAppClick = () => {
     const phoneNumber = '+91 7506037304';
