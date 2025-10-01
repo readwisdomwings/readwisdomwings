@@ -132,9 +132,7 @@ export default function FAQs() {
             <p className="text-foreground">
               <strong>Email:</strong> read.wisdomwings@gmail.com
             </p>
-            <p className="text-foreground">
-              <strong>Hours:</strong> Monday - Sunday, 10:00 AM - 8:00 PM
-            </p>
+           
           </div>
         </div>
       </div>
