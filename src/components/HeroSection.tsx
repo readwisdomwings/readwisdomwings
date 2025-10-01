@@ -16,7 +16,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-12 md:py-16">
+    <section className="relative -mt-16 pt-36 pb-12 md:pb-16 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}

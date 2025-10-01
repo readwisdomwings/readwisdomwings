@@ -33,43 +33,42 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 no-shadow">
+          <Link to="/" className="flex items-center space-x-3 no-shadow header-element">
             {branding?.logo && branding.logo !== '/placeholder.svg' ? (
               <img 
                 src={branding.logo} 
                 alt="WisdomWings" 
-                className="h-8 w-auto no-shadow"
+                className="h-8 w-auto no-shadow header-element"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
               />
             ) : null}
-            <div className="flex flex-col no-shadow">
-              <span className="text-xl font-bold wisdomwings-text no-shadow">WisdomWings</span>
-              <span className="text-xs text-muted-foreground no-shadow hidden sm:block">Serving young readers in Venkatesh Graffiti.</span>
-              <span className="text-xs text-muted-foreground no-shadow sm:hidden">Serving young readers in Venkatesh Graffiti.</span>
+            <div className="flex flex-col no-shadow header-element">
+              <span className="text-xl font-bold wisdomwings-text no-shadow header-element">WisdomWings</span>
+              <span className="text-xs text-muted-foreground no-shadow header-element hidden sm:block">Serving young readers in Venkatesh Graffiti.</span>
+              <span className="text-xs text-muted-foreground no-shadow header-element sm:hidden">Serving young readers in Venkatesh Graffiti.</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 no-shadow header-element">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm font-medium transition-colors hover:text-primary no-shadow header-element ${
                   isActive(item.href) 
                     ? 'text-primary border-b-2 border-primary pb-1' 
                     : 'text-muted-foreground'
                 }`}
-                style={{ textShadow: 'none' }}
               >
                 {item.name}
               </Link>
             ))}
-            <Button size="sm" asChild>
-              <Link to="/books">Browse Books</Link>
+            <Button size="sm" asChild className="no-shadow header-element">
+              <Link to="/books" className="no-shadow header-element">Browse Books</Link>
             </Button>
           </div>
 

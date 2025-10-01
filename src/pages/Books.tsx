@@ -137,7 +137,7 @@ export default function Books() {
 
   // Get unique categories and age groups
   const categories = [...new Set(allBooks.map(book => book.category))].filter(Boolean);
-  const ageGroups = [...new Set(allBooks.map(book => book.ageRange))].filter(Boolean);
+  const ageGroups = [...new Set(allBooks.map(book => book.ageRange))].filter(Boolean).filter(age => age !== 'All Ages');
 
   // Pagination
   const totalPages = Math.ceil(filteredBooks.length / BOOKS_PER_PAGE);
