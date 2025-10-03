@@ -26,6 +26,7 @@ export interface BrandingData {
   section3Books: string[];
   popularBookSeriesImages: string[];
   featuredBooks: string[];
+  featuredKidsTitle: string;
   showFeaturedKids: boolean;
   featuredKids: FeaturedKidData[];
   showPlaceholder: boolean;
@@ -85,6 +86,7 @@ export class GoogleSheetsService {
         section3Books: [],
         popularBookSeriesImages: [],
         featuredBooks: [],
+        featuredKidsTitle: 'Featured kids of the season',
         showFeaturedKids: false,
         featuredKids: [],
         showPlaceholder: false,
@@ -278,6 +280,7 @@ export class GoogleSheetsService {
         section3Books: [],
         popularBookSeriesImages: [],
         featuredBooks: [],
+        featuredKidsTitle: 'Featured kids of the season',
         showFeaturedKids: false,
         featuredKids: [],
         showPlaceholder: false,
@@ -334,6 +337,7 @@ export class GoogleSheetsService {
     console.log(`📊 Found ${featuredBooks.length} valid featured book IDs`);
     
     // Parse featured kids data
+    const featuredKidsTitle = cellData.get('AB1') || 'Featured kids of the season';
     const showFeaturedKids = cellData.get('AB3')?.toLowerCase() === 'yes';
     const featuredKids: FeaturedKidData[] = [];
     
@@ -359,7 +363,7 @@ export class GoogleSheetsService {
       name: cellData.get('AC4') || '',
       age: cellData.get('AC5') || '',
       booksRead: cellData.get('AC6') || '',
-      bookNames: cellData.get('AC7') || '',
+      bookNames: '', // Placeholder doesn't have book names
       image: this.processImageUrl(cellData.get('AC8') || '') || '/placeholder.svg'
     };
 
@@ -400,6 +404,7 @@ export class GoogleSheetsService {
         cellData.get('Z6')
       ].map(url => this.processImageUrl(url || '')).filter(Boolean),
       featuredBooks,
+      featuredKidsTitle,
       showFeaturedKids,
       featuredKids,
       showPlaceholder,

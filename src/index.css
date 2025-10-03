@@ -144,8 +144,14 @@
   nav button,
   nav span,
   nav div,
+  nav p,
+  nav h1,
+  nav img,
   .header-element,
-  .header-element * {
+  .header-element *,
+  header *,
+  [role="navigation"] *,
+  [role="banner"] * {
     box-shadow: none !important;
     text-shadow: none !important;
     filter: none !important;

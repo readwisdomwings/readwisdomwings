@@ -88,7 +88,7 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
     <Card className="h-full min-h-[360px]">
       <CardContent className="p-6 flex flex-col text-left space-y-4 h-full">
         {/* Kid's Image */}
-        <div className="w-24 h-24 rounded-full overflow-hidden bg-muted flex-shrink-0">
+        <div className="w-32 h-32 rounded-full overflow-hidden bg-muted flex-shrink-0">
           {kid.image && kid.image !== '/placeholder.svg' ? (
             <img 
               src={kid.image} 
@@ -101,7 +101,7 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-              <span className="text-2xl font-bold text-primary">
+              <span className="text-3xl font-bold text-primary">
                 {kid.name?.charAt(0) || '?'}
               </span>
             </div>
@@ -120,19 +120,24 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
 
         {/* Books Read or Explore Button */}
         {isPlaceholder ? (
-          <div className="flex-grow flex flex-col justify-end">
-            <Button asChild className="mt-4">
-              <Link to="/books">Explore Books</Link>
-            </Button>
-          </div>
+          <>
+            <p className="text-sm font-medium text-muted-foreground">
+              {kid.booksRead}
+            </p>
+            <div className="flex-grow flex flex-col justify-end">
+              <Button asChild className="mt-4">
+                <Link to="/books">Explore Books</Link>
+              </Button>
+            </div>
+          </>
         ) : (
           <>
-            <p className={`text-sm font-medium ${isPlaceholder ? 'text-muted-foreground' : 'text-primary'}`}>
+            <p className="text-sm font-medium text-primary">
               {kid.booksRead}
             </p>
             
             {/* Book Names */}
-            {kid.bookNames && (
+            {kid.bookNames && kid.bookNames.trim() !== '' && (
               <div className="text-xs text-muted-foreground flex-grow">
                 <p className="font-medium mb-1">Recent reads:</p>
                 <TruncatedText text={kid.bookNames} maxLength={160} />
@@ -150,7 +155,7 @@ export function FeaturedKidsSection({}: FeaturedKidsSectionProps) {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Featured kids of the season
+            {branding.featuredKidsTitle || 'Featured kids of the season'}
           </h2>
           <p className="text-lg text-muted-foreground">
             Celebrating our young readers and their reading journey
