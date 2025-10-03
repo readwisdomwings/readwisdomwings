@@ -4,8 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 const benefits = [
   {
     icon: BookOpen,
-    title: 'Build a daily habit',
-    description: 'Fresh books weekly keep kids excited to read more.'
+    title: 'Spark multisensory focus',
+    description: 'Touch, sight, and smell make print reading more immersive and memorable.'
   },
   {
     icon: Clock,
